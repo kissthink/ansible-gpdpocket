@@ -1,0 +1,6 @@
+---
+- name: add bluetooth config to rc.local
+  lineinfile:
+    path: /etc/rc.local
+    insertbefore: 'exit 0'
+    line: 'echo "0000 0000" > /sys/bus/usb/drivers/btusb/new_id'

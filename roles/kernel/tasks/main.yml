@@ -1,5 +1,5 @@
 ---
-- name: copy files to device
+- name: copy kernel files to device
   copy:
     src: "{{ item }}"
     dest: /tmp/
@@ -16,3 +16,14 @@
   file:
     path: /tmp/*.deb
     state: absent
+    
+- name: add pwm modules to initramfs
+  lineinfile:
+    path: /etc/initramfs-tools/modules
+    line: "{{ item }}"
+  with_items:
+  - pwm-lpss
+  - pwm-lpss-platform
+  
+- name: update initramfs
+  shell: update-initramfs -u -k all

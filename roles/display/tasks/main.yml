@@ -1,0 +1,5 @@
+---
+- name: create touchscreen config
+  lineinfile:
+    path: /etc/X11/Xsession.d/99touchscreen
+    line: xinput set-prop 11 145 0 1 0 -1 0 1 0 0 1

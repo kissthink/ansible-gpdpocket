@@ -1,0 +1,10 @@
+---
+- name: copy audio config files to device
+  copy:
+    src: "{{ item }}"
+    dest: /usr/share/alsa/ucm/
+    owner: root
+    group: root
+    mode: 0644
+  with_fileglob:
+  - "files/*.conf"
