@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+
+  roles:
+  - bluetooth
+  - display
+  - fan
+  - grub
+  - kernel
+  - power
+  - wifi
