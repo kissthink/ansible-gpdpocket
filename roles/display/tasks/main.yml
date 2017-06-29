@@ -17,4 +17,5 @@
     mode: 0777
     content: |
       #!/bin/sh
+      sleep 2s
       xrandr -o right
