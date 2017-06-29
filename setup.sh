@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # install all dependencies for ansible scripts to run
-deb -i bootstrap/*.deb
+dpkg -i bootstrap/*.deb
 
 # run ansible scripts
-ansible main.yml
+ANSIBLE_NOCOWS=1 ansible-playbook main.yml

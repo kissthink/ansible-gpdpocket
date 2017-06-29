@@ -1,22 +1,7 @@
 ---
-- name: copy kernel files to device
-  copy:
-    src: "{{ item }}"
-    dest: /tmp/
-    owner: root
-    group: root
-    mode: 0644
-  with_fileglob:
-  - "files/*.deb"
-
 - name: install gpd patched kernel
-  apt: deb=/tmp/*.deb
-  
-- name: remove deb files
-  file:
-    path: /tmp/*.deb
-    state: absent
-    
+  shell: dpkg -i roles/kernel/files/*.deb
+
 - name: add pwm modules to initramfs
   lineinfile:
     path: /etc/initramfs-tools/modules

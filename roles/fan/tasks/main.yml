@@ -1,21 +1,6 @@
 ---
-- name: copy gpdfand dependencies to device
-  copy:
-    src: "{{ item }}"
-    dest: /tmp/
-    owner: root
-    group: root
-    mode: 0644
-  with_fileglob:
-  - "files/*.deb"
-  
 - name: install gpdfand dependencies
-  apt: deb=/tmp/*.deb
-
-- name: remove deb files
-  file:
-    path: /tmp/*.deb
-    state: absent
+  shell: dpkg -i roles/fan/files/deb/*.deb
 
 - name: copy gpdfand daemon
   copy:
@@ -37,9 +22,10 @@
   - enable service
     
 - name: add suspend script for gpdfand
-  copy: files/scripts/gpdfand
-  dest: /lib/systemd/system-sleep/gpdfand
-  owner: root
-  group: root
-  mode: 0755
+  copy:
+    src: files/scripts/gpdfand
+    dest: /lib/systemd/system-sleep/gpdfand
+    owner: root
+    group: root
+    mode: 0755
     
