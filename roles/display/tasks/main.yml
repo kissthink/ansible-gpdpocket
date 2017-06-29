@@ -1,21 +1,20 @@
 ---
 - name: create touchscreen config
   copy:
-    dest: /etc/X11/Xsession.d/99touchscreen
+    dest: /etc/X11/Xsession.d/01touchscreen
     owner: root
     group: root
     mode: 0777
     content: |
       #!/bin/sh
-      xinput set-prop 11 145 0 1 0 -1 0 1 0 0 1
+      /usr/bin/xinput set-prop 11 145 0 1 0 -1 0 1 0 0 1
 
 - name: create display rotation script
   copy:
-    dest: /etc/X11/Xsession.d/99rotate
+    dest: /etc/X11/Xsession.d/02rotate
     owner: root
     group: root
     mode: 0777
     content: |
       #!/bin/sh
-      sleep 2s
-      xrandr -o right
+      /usr/bin/xrandr -o right
