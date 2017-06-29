@@ -25,4 +25,4 @@
     mode: 0644
   with_items:
   - 20-intel.conf
-  - 21-monitor.conf
+#  - 21-monitor.conf
