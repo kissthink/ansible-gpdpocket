@@ -29,3 +29,7 @@
     group: root
     mode: 0755
     
+- name: create log path for gpdfand
+  file:
+    path: /var/log/gpdfand
+    state: directory
