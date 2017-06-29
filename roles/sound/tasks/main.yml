@@ -1,4 +1,9 @@
 ---
+- name: create ucm directory
+  file:
+    path: /usr/share/alsa/ucm
+    state: directory
+
 - name: copy audio config files to device
   copy:
     src: "{{ item }}"
