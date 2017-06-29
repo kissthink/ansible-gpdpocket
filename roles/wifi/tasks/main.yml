@@ -6,3 +6,8 @@
     owner: root
     group: root
     mode: 0644
+    
+- name: prevent suspend from breaking wifi
+  lineinfile:
+    path: /etc/pm/config.d/config
+    lineinfile: SUSPEND_MODULES="brcmfmac"
