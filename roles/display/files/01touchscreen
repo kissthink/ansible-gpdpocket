@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/bin/xinput set-prop 11 145 0 1 0 -1 0 1 0 0 1

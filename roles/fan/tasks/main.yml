@@ -1,18 +1,22 @@
 ---
 - name: install gpdfand dependencies
-  shell: dpkg -i roles/fan/files/deb/*.deb
+  apt: name="{{ item }}"
+  with_items:
+  - libproc-daemon-perl
+  - libproc-pid-file-perl
+  - liblog-dispatch-perl
 
 - name: copy gpdfand daemon
   copy:
-    src: files/scripts/gpdfand.pl
+    src: files/gpdfand.pl
     dest: /usr/local/bin/gpdfand
     owner: root
     group: root
-    mode: 0755
+    mode: 0777
 
 - name: copy systemd service for gpdfand
   copy:
-    src: files/scripts/gpdfand.service
+    src: files/gpdfand.service
     dest: /etc/systemd/system/gpdfand.service
     owner: root
     group: root
@@ -23,11 +27,11 @@
     
 - name: add suspend script for gpdfand
   copy:
-    src: files/scripts/gpdfand
+    src: files/gpdfand
     dest: /lib/systemd/system-sleep/gpdfand
     owner: root
     group: root
-    mode: 0755
+    mode: 0777
     
 - name: create log path for gpdfand
   file:

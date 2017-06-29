@@ -1,20 +1,27 @@
 ---
 - name: create touchscreen config
   copy:
+    src: files/01touchscreen
     dest: /etc/X11/Xsession.d/01touchscreen
     owner: root
     group: root
     mode: 0777
-    content: |
-      #!/bin/sh
-      /usr/bin/xinput set-prop 11 145 0 1 0 -1 0 1 0 0 1
-
-- name: create display rotation script
+      
+- name: install necessary packages for video acceleration
+  apt: name="{{ item }}"
+  with_items:
+  - i965-va-driver
+  - gstreamer1.0-libav
+  - gstreamer1.0-plugins-bad-faad
+  - gstreamer1.0-vaapi
+  
+- name: create xorg configs for video card
   copy:
-    dest: /etc/X11/Xsession.d/02rotate
+    src: "{{ item }}"
+    dest: /etc/X11/xorg.conf.d/
     owner: root
     group: root
-    mode: 0777
-    content: |
-      #!/bin/sh
-      /usr/bin/xrandr -o right
+    mode: 0644
+  with_items:
+  - 20-intel.conf
+  - 21-monitor.conf
