@@ -3,4 +3,9 @@
   lineinfile:
     path: /etc/rc.local
     insertbefore: 'exit 0'
-    line: 'echo "0000 0000" > /sys/bus/usb/drivers/btusb/new_id'
+    line: 'modprobe btusb && echo "0000 0000" > /sys/bus/usb/drivers/btusb/new_id'
+    
+- name: enable rc-local service
+  service:
+    name: rc-local
+    enabled: yes
