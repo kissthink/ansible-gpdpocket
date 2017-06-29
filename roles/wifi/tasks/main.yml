@@ -11,3 +11,4 @@
   lineinfile:
     path: /etc/pm/config.d/config
     lineinfile: SUSPEND_MODULES="brcmfmac"
+    create: yes
