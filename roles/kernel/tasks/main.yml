@@ -1,11 +1,17 @@
 ---
 - name: install gpd patched kernel
-  shell: dpkg -i roles/kernel/files/*.deb
+  apt:
+    deb: "{{ item }}"
+    install_recommends: no
+    update_cache: no
+  with_fileglob:
+  - "files/*.deb"
 
 - name: add pwm modules to initramfs
   lineinfile:
     path: /etc/initramfs-tools/modules
     line: "{{ item }}"
+    create: yes
   register: initramfs_modules
   with_items:
   - pwm-lpss
