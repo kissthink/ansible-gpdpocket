@@ -14,7 +14,7 @@
   - gstreamer1.0-plugins-bad-faad
   - gstreamer1.0-vaapi
   - i965-va-driver
-  - meta-utils
+  - mesa-utils
   
 - name: create xorg configs for video card
   copy:
