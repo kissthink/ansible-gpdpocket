@@ -4,3 +4,9 @@
     path: /etc/X11/Xsession.d/99touchscreen
     line: xinput set-prop 11 145 0 1 0 -1 0 1 0 0 1
     create: yes
+    
+- name: create display rotation script
+  lineinfile:
+    path: /etc/X11/Xsession.d/99rotate
+    line: xrandr --output DSI1 --rotate right
+    create: yes
