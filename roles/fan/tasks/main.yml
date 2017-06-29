@@ -33,3 +33,6 @@
   file:
     path: /var/log/gpdfand
     state: directory
+    owner: root
+    group: root
+    mode: 0666
