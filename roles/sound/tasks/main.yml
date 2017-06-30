@@ -1,13 +1,13 @@
 ---
 - name: create ucm directory
   file:
-    path: /usr/share/alsa/ucm
+    path: /usr/share/alsa/ucm/chtrt5645
     state: directory
 
 - name: copy audio config files to device
   copy:
     src: "{{ item }}"
-    dest: /usr/share/alsa/ucm/
+    dest: /usr/share/alsa/ucm/chtrt5645/
     owner: root
     group: root
     mode: 0644
