@@ -16,13 +16,10 @@
   - i965-va-driver
   - mesa-utils
   
-- name: create xorg configs for video card
+- name: create xorg config for display rotation
   copy:
-    src: "{{ item }}"
-    dest: /etc/X11/xorg.conf.d/
+    src: 21-monitor.conf
+    dest: /etc/X11/xorg.conf.d/21-monitor.conf
     owner: root
     group: root
     mode: 0644
-  with_items:
-  - 20-intel.conf
-#  - 21-monitor.conf
