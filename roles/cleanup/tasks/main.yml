@@ -30,3 +30,8 @@
   with_items:
   - '^modprobe btusb'
   - '^echo "0000 0000"'
+  
+- name: remove old gpdfand script
+  file:
+    path: /usr/local/bin/gpdfand
+    state: absent

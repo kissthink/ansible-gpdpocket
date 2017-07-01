@@ -3,13 +3,13 @@
   connection: local
 
   roles:
+  - audio
   - bluetooth
   - cleanup
   - display
   - fan
   - grub
   - kernel
-  - sound
   - wifi
   
   tasks:

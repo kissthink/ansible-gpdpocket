@@ -12,11 +12,8 @@
     path: /etc/initramfs-tools/modules
     line: "{{ item }}"
     create: yes
-  register: initramfs_modules
+  notify:
+  - rebuild initramfs
   with_items:
   - pwm-lpss
   - pwm-lpss-platform
-  
-- name: update initramfs
-  shell: update-initramfs -u -k all
-  when: initramfs_modules.changed

@@ -24,4 +24,3 @@
     path: /etc/pulse/daemon.conf
     regexp: '^realtime-scheduling = yes'
     state: absent
-    
