@@ -8,4 +8,4 @@
   service:
     name: gpdfand
     enabled: yes
-    state: restarted
+    state: started
