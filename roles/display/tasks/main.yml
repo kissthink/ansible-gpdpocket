@@ -16,10 +16,23 @@
   - i965-va-driver
   - mesa-utils
   
-- name: create xorg config for display rotation
-  copy:
-    src: 21-monitor.conf
-    dest: /etc/X11/xorg.conf.d/21-monitor.conf
-    owner: root
-    group: root
-    mode: 0644
+- name: copy monitors.xml config in to place
+  shell: |
+    # install for users
+    for USER in $(ls /home); do
+      mkdir -p /home/${USER}/.config/
+      cp -f roles/display/files/monitors.xml /home/${USER}/.config/monitors.xml
+      chown -R ${USER}:${USER} /home/${USER}/.config/
+    done
+    
+    # install for gdm
+    if [ ! -d /var/lib/gdm3/.config ]; then
+      cp -f roles/display/files/monitors.xml /var/lib/gdm3/.config/monitors.xml
+      chown gdm:gdm /var/lib/gdm3/.config/monitors.xml
+    fi
+    
+    # install for lightdm
+    if [ ! -d /var/lib/lightdm/.config ]; then
+      cp -f roles/display/files/monitors.xml /var/lib/lightdm/.config/monitors.xml
+      chown lightdm:lightdm /var/lib/lightdm/.config/monitors.xml
+    fi

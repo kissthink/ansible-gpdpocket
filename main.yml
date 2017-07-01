@@ -4,6 +4,7 @@
 
   roles:
   - bluetooth
+  - cleanup
   - display
   - fan
   - grub
