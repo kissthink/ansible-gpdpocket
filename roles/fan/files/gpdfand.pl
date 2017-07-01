@@ -46,13 +46,17 @@ sub getTemps {
         my $temp_int = 0;
         
         # Determine path
-        my @temp_paths = glob "/sys/class/hwmon/hwmon*/temp{2,3,4,5}_input";
+        @temp_paths = glob "/sys/class/hwmon/hwmon*/temp{2,3,4,5}_input";
         
         foreach(@temp_paths)
         {
+          $log->warning("Monitoring $_"); 
+          
           open($corefh, "<", $_);
           $tmp[$temp_int] = <$corefh> / 1000;
           close($corefh);
+          
+          
           
           $temp_int++;
         }
@@ -62,8 +66,8 @@ sub getTemps {
 sub fanCtlOn {
         open(my $fhexp, ">", "/sys/class/gpio/export") or dienice("GPIO error.");
         print $fhexp "397";
-	close($fhexp);
-	open($fhexp, ">", "/sys/class/gpio/export") or dienice("GPIO error.");
+	      close($fhexp);
+	      open($fhexp, ">", "/sys/class/gpio/export") or dienice("GPIO error.");
         print $fhexp "398";
         close($fhexp);
 }
