@@ -1,9 +1,23 @@
 ---
 - name: remove xorg experimental config changes
-  shell: rm -f /etc/X11/xorg.conf.d/*.conf
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_fileglob:
+  - /etc/X11/xorg.conf.d/*.conf
   
 - name: remove audio files from wrong location
-  shell: rm -f /usr/share/alsa/ucm/HiFi.conf /usr/share/alsa/ucm/chtrt5645.conf
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+  - /usr/share/alsa/ucm/HiFi.conf
+  - /usr/share/alsa/ucm/chtrt5645.conf
   
 - name: remove old touchscreen script
-  shell: rm -f /etc/X11/Xsession.d/99touchscreen /etc/X11/Xsession.d/98touchscreen
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+  - /etc/X11/Xsession.d/99touchscreen
+  - /etc/X11/Xsession.d/98touchscreen
