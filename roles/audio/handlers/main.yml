@@ -1,0 +1,3 @@
+---
+- name: set default audio
+  shell: pacmd set-default-sink "alsa_output.platform-cht-bsw-rt5645.HiFi__hw_chtrt5645__sink" || true

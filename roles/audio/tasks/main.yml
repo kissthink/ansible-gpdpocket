@@ -11,6 +11,8 @@
     owner: root
     group: root
     mode: 0644
+  notify:
+  - set default audio
   with_fileglob:
   - "files/*.conf"
 
@@ -24,3 +26,15 @@
     path: /etc/pulse/daemon.conf
     regexp: '^realtime-scheduling = yes'
     state: absent
+    
+- name: fix pulseaudio config [3]
+  lineinfile:
+    path: /etc/pulse/default.pa
+    regexp: '^#set-default-sink output'
+    line: 'set-default-sink 1'
+    
+- name: fix pulseaudio config [4]
+  lineinfile:
+    path: /etc/pulse/default.pa
+    regexp: '^#set-default-source 1'
+    line: 'set-default-source 1'

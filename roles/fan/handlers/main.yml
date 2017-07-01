@@ -3,7 +3,7 @@
   systemd:
     name: gpdfand
     daemon_reload: yes
-    
+
 - name: enable service
   service:
     name: gpdfand
