@@ -1,0 +1,9 @@
+---
+- name: install necessary packages for video acceleration
+  apt: name="{{ item }}"
+  with_items:
+  - gstreamer1.0-libav
+  - gstreamer1.0-plugins-bad-faad
+  - gstreamer1.0-vaapi
+  - i965-va-driver
+  - mesa-utils
