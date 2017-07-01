@@ -40,25 +40,20 @@ sub dienice ($);
 
 sub getTemps {
         my @tmp;
-        my @temp_paths;
+        my @tmp_paths;
         my $corefh;
-        my $temp_path;
-        my $temp_int = 0;
+        my $tmp_int = 0;
         
         # Determine path
-        @temp_paths = glob "/sys/class/hwmon/hwmon*/temp{2,3,4,5}_input";
+        @tmp_paths = glob "/sys/class/hwmon/hwmon*/temp{2,3,4,5}_input";
         
-        foreach(@temp_paths)
+        foreach(@tmp_paths)
         {
-          $log->warning("Monitoring $_"); 
-          
           open($corefh, "<", $_);
-          $tmp[$temp_int] = <$corefh> / 1000;
+          $tmp[$tmp_int] = <$corefh> / 1000;
           close($corefh);
           
-          
-          
-          $temp_int++;
+          $tmp_int++;
         }
         return @tmp;
 }
