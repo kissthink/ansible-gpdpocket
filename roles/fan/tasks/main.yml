@@ -18,7 +18,7 @@
 - name: apply patch to gpdfand to ensure correct resource is monitored
   shell: |
     HWMONPATH=$(for i in /sys/class/hwmon/hwmon*/; do [ "$(cat "$i"name)" = coretemp ] && break; done; echo "$i")
-    sed -i 's|/sys/class/hwmon/hwmon\*/|'$HWMONPATH'|' /usr/local/sbin/gpdfand
+    sed -i "s,/sys/class/hwmon/hwmon*/,${HWMONPATH}," /usr/local/sbin/gpdfand
   when: gpdfand_install.changed
 
 - name: copy systemd service for gpdfand
