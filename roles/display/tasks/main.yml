@@ -22,7 +22,7 @@
     for USER in $(ls /home); do
       mkdir -p /home/${USER}/.config/
       if ! (grep -q right "/home/${USER}/.config/monitors.xml" || false); then
-        cp -f roles/display/files/monitors.xml /home/${USER}/.config/monitors.xml
+        cp -vf roles/display/files/monitors.xml /home/${USER}/.config/monitors.xml
         chown -R ${USER}:${USER} /home/${USER}/.config/
       fi
     done
@@ -30,7 +30,7 @@
     # install for gdm
     if [ -d "/var/lib/gdm3/.config" ]; then
       if ! (grep -q right "/var/lib/gdm3/.config/monitors.xml" || false); then
-        cp -f roles/display/files/monitors.xml /var/lib/gdm3/.config/monitors.xml
+        cp -vf roles/display/files/monitors.xml /var/lib/gdm3/.config/monitors.xml
         chown gdm:gdm /var/lib/gdm3/.config/monitors.xml
       fi
     fi
@@ -38,7 +38,9 @@
     # install for lightdm
     if [ -d "/var/lib/lightdm/.config" ]; then
       if ! (grep -q right "/var/lib/lightdm/.config/monitors.xml" || false); then
-        cp -f roles/display/files/monitors.xml /var/lib/lightdm/.config/monitors.xml
+        cp -vf roles/display/files/monitors.xml /var/lib/lightdm/.config/monitors.xml
         chown lightdm:lightdm /var/lib/lightdm/.config/monitors.xml
       fi
     fi
+  register: monitors_copy
+  changed_when: monitors_copy.stdout.find('->') != -1
