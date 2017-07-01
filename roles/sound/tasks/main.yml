@@ -13,3 +13,15 @@
     mode: 0644
   with_fileglob:
   - "files/*.conf"
+
+- name: fix pulseaudio config [1]
+  lineinfile:
+    path: /etc/pulse/daemon.conf
+    line: 'realtime-scheduling = no'
+
+- name: fix pulseaudio config [2]
+  lineinfile:
+    path: /etc/pulse/daemon.conf
+    regexp: '^realtime-scheduling = yes'
+    state: absent
+    
