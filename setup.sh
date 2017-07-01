@@ -13,8 +13,8 @@ fi
 
 # install ansible (if necessary)
 if [ ! -f /usr/bin/ansible ]; then
+  add-apt-repository -y ppa:ansible/ansible
   apt-get update
-  apt-get -y dist-upgrade
   apt-get -y install ansible
 fi
 
