@@ -28,6 +28,20 @@ if [ ! -f /usr/bin/ansible ]; then
   apt-get -y install ansible
 fi
 
+# install git
+if [ ! -f /usr/bin/git ]; then
+  apt-get -y install git
+fi
+
+# update git repository
+if [ ! -d .git ]; then
+  git init
+  git remote add origin https://chrisaw@bitbucket.org/chrisaw/ansible-gpdpocket.git
+else
+  git remote set-url origin https://chrisaw@bitbucket.org/chrisaw/ansible-gpdpocket.git
+fi
+git fetch --all && git reset --hard origin/master
+
 # run ansible scripts (without cowsay! :P)
 ANSIBLE_NOCOWS=1 ansible-playbook main.yml
 
