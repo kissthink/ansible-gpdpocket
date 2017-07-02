@@ -12,7 +12,7 @@ if [ ! -f /lib/firmware/brcm/brcmfmac4356-pcie.txt ]; then
 fi
 
 # wait for internet connection
-while ! ping -c1 google.com &>/dev/null
+while ! ping -c1 google.com &>/dev/null; do
   sleep 1
 done
 
