@@ -1,6 +1,18 @@
 #!/bin/sh
 
+# copy to /root
+echo "copying playbooks to /root/ansible-gpdpocket"
+if [ ! -d /root/ansible-gpdpocket ]; then
+  mkdir -p /root/ansible-gpdpocket
+  cp -ar * /root/ansible-gpdpocket/
+fi
+
+# ensure correct dir
+echo "changing to on-disk directory..."
+cd /root/ansible-gpdpocket
+
 # setup wifi (if necessary)
+echo "setting up wifi..."
 if [ ! -f /lib/firmware/brcm/brcmfmac4356-pcie.txt ]; then
   cp roles/wifi/files/brcmfmac4356-pcie.txt /lib/firmware/brcm/brcmfmac4356-pcie.txt
   modprobe -r brcmfmac
