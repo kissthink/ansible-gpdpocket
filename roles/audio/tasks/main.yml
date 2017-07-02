@@ -30,11 +30,9 @@
 - name: fix pulseaudio config [3]
   lineinfile:
     path: /etc/pulse/default.pa
-    regexp: '^#set-default-sink'
     line: 'set-default-sink 1'
     
 - name: fix pulseaudio config [4]
   lineinfile:
     path: /etc/pulse/default.pa
-    regexp: '^#set-default-source'
     line: 'set-default-source 1'
