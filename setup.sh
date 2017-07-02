@@ -20,3 +20,6 @@ fi
 
 # run ansible scripts (without cowsay! :P)
 ANSIBLE_NOCOWS=1 ansible-playbook main.yml
+
+# reboot after ansible run
+reboot
