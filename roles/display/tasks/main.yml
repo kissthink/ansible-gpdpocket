@@ -7,8 +7,8 @@
     group: root
     mode: 0777
   with_items:
-  - 01touchscreen
-  - 02scale
+  - files/01touchscreen
+  - files/02scale
   tags:
   - display
   
