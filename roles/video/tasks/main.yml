@@ -9,3 +9,22 @@
   - mesa-utils
   tags:
   - video
+
+- name: create xorg config directory
+  file:
+    path: /etc/X11/xorg.conf.d
+    state: directory
+  tags:
+  - video
+
+- name: create xorg configs
+  copy:
+    src: "files/{{ item }}"
+    dest: /etc/X11/xorg.conf.d/
+    owner: root
+    group: root
+    mode: 0644
+  with_fileglob:
+  - "files/*.conf"
+  tags:
+  - video

@@ -1,11 +1,14 @@
 ---
-- name: create touchscreen config
+- name: create xorg configs
   copy:
-    src: files/01touchscreen
-    dest: /etc/X11/Xsession.d/01touchscreen
+    src: files/"{{ item }}"
+    dest: /etc/X11/Xsession.d/
     owner: root
     group: root
     mode: 0777
+  with_items:
+  - 01touchscreen
+  - 02scale
   tags:
   - display
   

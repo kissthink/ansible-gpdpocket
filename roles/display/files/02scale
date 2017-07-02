@@ -1,0 +1,4 @@
+#!/bin/sh
+if [ -f /usr/bin/gsettings ]; then
+  gsettings set org.gnome.desktop.interface scaling-factor 1
+fi
