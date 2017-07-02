@@ -11,6 +11,11 @@ if [ ! -f /lib/firmware/brcm/brcmfmac4356-pcie.txt ]; then
   read
 fi
 
+# wait for apt to be available
+while [ -f /var/lib/dpkg/lock ]; do
+  sleep 1
+done
+
 # install ansible (if necessary)
 if [ ! -f /usr/bin/ansible ]; then
   add-apt-repository -y ppa:ansible/ansible
