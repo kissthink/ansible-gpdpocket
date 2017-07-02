@@ -12,16 +12,19 @@ if [ ! -f /lib/firmware/brcm/brcmfmac4356-pcie.txt ]; then
 fi
 
 # wait for internet connection
+echo "waiting for internet connection..."
 while ! ping -c1 google.com &>/dev/null; do
   sleep 1
 done
 
 # wait for apt to be available
-while [ -f /var/lib/dpkg/lock ]; do
+echo "waiting for apt to be available..."
+while fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
   sleep 1
 done
 
 # install ansible (if necessary)
+echo "ensuring ansible is installed..."
 if [ ! -f /usr/bin/ansible ]; then
   add-apt-repository -y ppa:ansible/ansible
   apt-get update
@@ -29,11 +32,13 @@ if [ ! -f /usr/bin/ansible ]; then
 fi
 
 # install git
+echo "ensuring git is installed..."
 if [ ! -f /usr/bin/git ]; then
   apt-get -y install git
 fi
 
 # update git repository
+echo "updating git repo..."
 if [ ! -d .git ]; then
   git init
   git remote add origin https://chrisaw@bitbucket.org/chrisaw/ansible-gpdpocket.git
@@ -43,7 +48,9 @@ fi
 git fetch --all && git reset --hard origin/master
 
 # run ansible scripts (without cowsay! :P)
+echo "starting ansible playbook..."
 ANSIBLE_NOCOWS=1 ansible-playbook main.yml
 
 # reboot after ansible run
+echo "rebooting system..."
 reboot
