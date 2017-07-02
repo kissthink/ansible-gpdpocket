@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # copy to /root
-echo "copying playbooks to /root/ansible-gpdpocket"
+echo "copying playbooks to /root/ansible-gpdpocket..."
 if [ ! -d /root/ansible-gpdpocket ]; then
   mkdir -p /root/ansible-gpdpocket
   cp -ar * /root/ansible-gpdpocket/
@@ -57,7 +57,8 @@ if [ ! -d .git ]; then
 else
   git remote set-url origin https://chrisaw@bitbucket.org/chrisaw/ansible-gpdpocket.git
 fi
-git fetch --all && git reset --hard origin/master
+git fetch --all
+git reset --hard origin/master
 
 # run ansible scripts (without cowsay! :P)
 echo "starting ansible playbook..."
