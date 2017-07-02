@@ -5,6 +5,8 @@
     state: absent
   with_fileglob:
   - /etc/X11/xorg.conf.d/*.conf
+  tags:
+  - cleanup
   
 - name: remove old audio files from wrong location
   file:
@@ -13,6 +15,8 @@
   with_items:
   - /usr/share/alsa/ucm/HiFi.conf
   - /usr/share/alsa/ucm/chtrt5645.conf
+  tags:
+  - cleanup
   
 - name: remove old touchscreen script
   file:
@@ -21,6 +25,8 @@
   with_items:
   - /etc/X11/Xsession.d/99touchscreen
   - /etc/X11/Xsession.d/98touchscreen
+  tags:
+  - cleanup
   
 - name: remove old rc.local hacks
   lineinfile:
@@ -30,8 +36,12 @@
   with_items:
   - '^modprobe btusb'
   - '^echo "0000 0000"'
+  tags:
+  - cleanup
   
 - name: remove old gpdfand script
   file:
     path: /usr/local/bin/gpdfand
     state: absent
+  tags:
+  - cleanup

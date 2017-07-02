@@ -6,6 +6,8 @@
     update_cache: no
   with_fileglob:
   - "files/*.deb"
+  tags:
+  - kernel
 
 - name: add pwm modules to initramfs
   lineinfile:
@@ -17,3 +19,5 @@
   with_items:
   - pwm-lpss
   - pwm-lpss-platform
+  tags:
+  - kernel

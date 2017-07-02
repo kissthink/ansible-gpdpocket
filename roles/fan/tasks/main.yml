@@ -5,6 +5,8 @@
   - libproc-daemon-perl
   - libproc-pid-file-perl
   - liblog-dispatch-perl
+  tags:
+  - fan
 
 - name: copy gpdfand daemon
   copy:
@@ -13,6 +15,8 @@
     owner: root
     group: root
     mode: 0777
+  tags:
+  - fan
 
 - name: copy systemd service for gpdfand
   copy:
@@ -24,6 +28,8 @@
   notify:
   - reload systemd
   - enable service
+  tags:
+  - fan
     
 - name: add suspend script for gpdfand
   copy:
@@ -32,6 +38,8 @@
     owner: root
     group: root
     mode: 0777
+  tags:
+  - fan
     
 - name: create log path for gpdfand
   file:
@@ -40,3 +48,5 @@
     owner: root
     group: root
     mode: 0666
+  tags:
+  - fan

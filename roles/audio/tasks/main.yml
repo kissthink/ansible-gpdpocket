@@ -3,6 +3,8 @@
   file:
     path: /usr/share/alsa/ucm/chtrt5645
     state: directory
+  tags:
+  - audio
 
 - name: copy audio config files to device
   copy:
@@ -15,24 +17,34 @@
   - set default audio
   with_fileglob:
   - "files/*.conf"
+  tags:
+  - audio
 
 - name: fix pulseaudio config [1]
   lineinfile:
     path: /etc/pulse/daemon.conf
     line: 'realtime-scheduling = no'
+  tags:
+  - audio
 
 - name: fix pulseaudio config [2]
   lineinfile:
     path: /etc/pulse/daemon.conf
     regexp: '^realtime-scheduling = yes'
     state: absent
+  tags:
+  - audio
     
 - name: fix pulseaudio config [3]
   lineinfile:
     path: /etc/pulse/default.pa
     line: 'set-default-sink 1'
+  tags:
+  - audio
     
 - name: fix pulseaudio config [4]
   lineinfile:
     path: /etc/pulse/default.pa
     line: 'set-default-source 1'
+  tags:
+  - audio

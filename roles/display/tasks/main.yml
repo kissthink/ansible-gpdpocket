@@ -6,6 +6,8 @@
     owner: root
     group: root
     mode: 0777
+  tags:
+  - display
   
 - name: copy monitors.xml config in to place
   shell: |
@@ -35,3 +37,5 @@
     fi
   register: monitors_copy
   changed_when: monitors_copy.stdout.find('->') != -1
+  tags:
+  - display

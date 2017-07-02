@@ -6,3 +6,5 @@
     line: 'GRUB_CMDLINE_LINUX_DEFAULT="i915.fastboot=1"'
   notify:
   - update grub
+  tags:
+  - grub
