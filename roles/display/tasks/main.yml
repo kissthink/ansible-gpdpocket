@@ -1,7 +1,7 @@
 ---
 - name: create xorg configs
   copy:
-    src: files/"{{ item }}"
+    src: "{{ item }}"
     dest: /etc/X11/Xsession.d/
     owner: root
     group: root
