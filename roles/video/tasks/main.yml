@@ -7,6 +7,9 @@
   - gstreamer1.0-vaapi
   - i965-va-driver
   - mesa-utils
+  - va-driver-all
+  - vainfo
+  - vlc
   tags:
   - video
 

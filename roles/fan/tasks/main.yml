@@ -8,6 +8,11 @@
   tags:
   - fan
 
+- name: install thermald
+  apt: name=thermald
+  tags:
+  - fan
+
 - name: copy gpdfand daemon
   copy:
     src: files/gpdfand.pl
