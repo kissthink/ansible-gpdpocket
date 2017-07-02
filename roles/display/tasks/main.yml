@@ -18,7 +18,7 @@
     for USER in $(ls /home); do
       mkdir -p /home/${USER}/.config/
       if ! (grep -q right "/home/${USER}/.config/monitors.xml" || false); then
-        if ! (grep -q DSI1 "/home/${USER}/.config/monitors.xml" || false); then
+        if ! (grep -q "DSI-1" "/home/${USER}/.config/monitors.xml" || false); then
           cp -vf roles/display/files/monitors.xml /home/${USER}/.config/monitors.xml
           chown -R ${USER}:${USER} /home/${USER}/.config/
         fi
@@ -28,7 +28,7 @@
     # install for gdm
     if [ -d "/var/lib/gdm3/.config" ]; then
       if ! (grep -q right "/var/lib/gdm3/.config/monitors.xml" || false); then
-        if ! (grep -q DSI1 "/var/lib/gdm3/.config/monitors.xml" || false); then
+        if ! (grep -q "DSI-1" "/var/lib/gdm3/.config/monitors.xml" || false); then
           cp -vf roles/display/files/monitors.xml /var/lib/gdm3/.config/monitors.xml
           chown gdm:gdm /var/lib/gdm3/.config/monitors.xml
         fi
@@ -38,7 +38,7 @@
     # install for lightdm
     if [ -d "/var/lib/lightdm/.config" ]; then
       if ! (`grep -q right "/var/lib/lightdm/.config/monitors.xml"` || false); then
-        if ! (grep -q DSI1 "/var/lib/lightdm/.config/monitors.xml" || false); then
+        if ! (grep -q "DSI-1" "/var/lib/lightdm/.config/monitors.xml" || false); then
           cp -vf roles/display/files/monitors.xml /var/lib/lightdm/.config/monitors.xml
           chown lightdm:lightdm /var/lib/lightdm/.config/monitors.xml
         fi
