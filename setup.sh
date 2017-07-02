@@ -11,6 +11,11 @@ if [ ! -f /lib/firmware/brcm/brcmfmac4356-pcie.txt ]; then
   read
 fi
 
+# wait for internet connection
+while ! ping -c1 google.com &>/dev/null
+  sleep 1
+done
+
 # wait for apt to be available
 while [ -f /var/lib/dpkg/lock ]; do
   sleep 1
