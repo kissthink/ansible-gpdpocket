@@ -46,4 +46,4 @@ ANSIBLE_NOCOWS=1 ansible-playbook site.yml
 # cleanup
 echo "performing clean up..."
 cd
-rm -rfv /tmp/ansible-gpdpocket
+rm -rf /tmp/ansible-gpdpocket
