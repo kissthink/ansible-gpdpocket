@@ -1,0 +1,3 @@
+---
+- name: install intel-microcode
+  apt: name=intel-microcode
