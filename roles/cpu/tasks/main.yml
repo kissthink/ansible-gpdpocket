@@ -3,7 +3,12 @@
   apt: name=intel-microcode
   tags:
   - cpu
-  
+
+- name: install lm-sensors
+  apt: name=lm-sensors
+  tags:
+  - cpu
+
 - name: install thermald
   apt: name=thermald
   tags:
