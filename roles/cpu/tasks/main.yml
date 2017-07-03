@@ -1,3 +1,15 @@
 ---
 - name: install intel-microcode
   apt: name=intel-microcode
+  tags:
+  - cpu
+  
+- name: install thermald
+  apt: name=thermald
+  tags:
+  - cpu
+
+- name: install tlp
+  apt: name=tlp
+  tags:
+  - cpu
