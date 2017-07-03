@@ -1,0 +1,10 @@
+---
+- name: install update script
+  copy:
+    path: files/ansible-update.sh
+    dest: /usr/local/bin/ansible-update
+    owner: root
+    group: root
+    mode: 0777
+  tags:
+  - update

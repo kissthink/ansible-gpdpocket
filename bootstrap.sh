@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# setup wifi (if necessary)
+# setup wifi
 echo "setting up wifi..."
 if [ ! -f /lib/firmware/brcm/brcmfmac4356-pcie.txt ]; then
   cp roles/wifi/files/brcmfmac4356-pcie.txt /lib/firmware/brcm/brcmfmac4356-pcie.txt
@@ -18,19 +18,12 @@ while ! ping -c1 google.com &>/dev/null; do
   sleep 1
 done
 
-# wait for apt to be available
-echo "waiting for apt to be available..."
-while fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
-  sleep 1
-done
-
-# install ansible (if necessary)
-echo "ensuring ansible is installed..."
-if [ ! -f /usr/bin/ansible ]; then
-  add-apt-repository -y ppa:ansible/ansible
-  apt-get update
-  apt-get -y install ansible
-fi
+# install ansible
+echo "installing essential packages..."
+rm -f /var/lib/dpkg/lock
+add-apt-repository -y ppa:ansible/ansible
+apt-get update
+apt-get -y install ansible unzip wget
 
 # update ansible code
 echo "downloading latest ansible code..."
@@ -39,7 +32,7 @@ wget -O /tmp/ansible-gpdpocket/master.zip https://bitbucket.org/chrisaw/ansible-
 unzip /tmp/ansible-gpdpocket/master.zip -d /tmp/ansible-gpdpocket/
 cd /tmp/ansible-gpdpocket/chrisaw-ansible*
 
-# run ansible scripts (without cowsay! :P)
+# run ansible scripts
 echo "starting ansible playbook..."
 ANSIBLE_NOCOWS=1 ansible-playbook site.yml
 
