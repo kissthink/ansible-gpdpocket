@@ -1,16 +1,5 @@
 #!/bin/sh
 
-# copy to /root
-echo "copying playbooks to /root/ansible-gpdpocket..."
-if [ ! -d /root/ansible-gpdpocket ]; then
-  mkdir -p /root/ansible-gpdpocket
-  cp -ar * /root/ansible-gpdpocket/
-fi
-
-# ensure correct dir
-echo "changing to on-disk directory..."
-cd /root/ansible-gpdpocket
-
 # setup wifi (if necessary)
 echo "setting up wifi..."
 if [ ! -f /lib/firmware/brcm/brcmfmac4356-pcie.txt ]; then
@@ -43,27 +32,18 @@ if [ ! -f /usr/bin/ansible ]; then
   apt-get -y install ansible
 fi
 
-# install git
-echo "ensuring git is installed..."
-if [ ! -f /usr/bin/git ]; then
-  apt-get -y install git
-fi
-
-# update git repository
-echo "updating git repo..."
-if [ ! -d .git ]; then
-  git init
-  git remote add origin https://chrisaw@bitbucket.org/chrisaw/ansible-gpdpocket.git
-else
-  git remote set-url origin https://chrisaw@bitbucket.org/chrisaw/ansible-gpdpocket.git
-fi
-git fetch --all
-git reset --hard origin/master
+# update ansible code
+echo "downloading latest ansible code..."
+mkdir /tmp/ansible-gpdpocket
+wget -O /tmp/ansible-gpdpocket/master.zip https://bitbucket.org/chrisaw/ansible-gpdpocket/get/master.zip
+unzip /tmp/ansible-gpdpocket/master.zip -d /tmp/ansible-gpdpocket/
+cd /tmp/ansible-gpdpocket/chrisaw-ansible*
 
 # run ansible scripts (without cowsay! :P)
 echo "starting ansible playbook..."
-ANSIBLE_NOCOWS=1 ansible-playbook main.yml
+ANSIBLE_NOCOWS=1 ansible-playbook site.yml
 
-# reboot after ansible run
-echo "rebooting system..."
-reboot
+# cleanup
+echo "performing clean up..."
+cd
+rm -rfv /tmp/ansible-gpdpocket

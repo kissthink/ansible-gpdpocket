@@ -36,3 +36,9 @@
     state: absent
   tags:
   - cleanup
+  
+- name: remove old copies of git repository
+  file:
+    path: /root/ansible-gpdpocket
+    state: absent
+    recurse: yes
