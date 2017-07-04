@@ -1,23 +1,87 @@
 ---
-- name: install gpd patched kernel
-  apt:
-    deb: "{{ item }}"
-    install_recommends: no
-    update_cache: no
-  with_fileglob:
-  - "files/*.deb"
+- name: install kernel build dependencies (arch)
+  pacman: item="{{ item }}"
+  with_items:
+  - base-devel
+  - bc
+  - docbook-xsl
+  - inetutils
+  - kmod
+  - git
+  - xmlto
+  when: ansible_distribution == 'ArchLinux
   tags:
   - kernel
 
-- name: add pwm modules to initramfs
+- name: install kernel build dependencies (debian)
+  apt: item="{{ item }}"
+  with_items:
+  - build-essential
+  - git
+  - libncurses5-dev
+  - libssl-dev
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  tags:
+  - kernel
+
+- name: fetch latest kernel sources
+  git:
+    repo: https://github.com/jwrdegoede/linux-sunxi.git
+    dest: /usr/src/linux-sunxi
+    force: yes
+  register: kernel_sources
+  tags:
+  - kernel
+
+- name: build kernel (this will take a while)
+  make:
+    chdir: /usr/src/linux-sunxi
+    params:
+      LOCALVERSION: -custom
+      NUM_THREADS: 9
+  when: kernel_sources.changed
+  tags:
+  - kernel
+
+- name: install kernel modules (this will take a while)
+  make:
+    chdir: /usr/src/linux-sunxi
+    target: modules_install
+  when: kernel_sources.changed
+  tags:
+  - kernel
+  
+- name: install kernel modules (this will take a while)
+  make:
+    chdir: /usr/src/linux-sunxi
+    target: install
+  when: kernel_sources.changed
+  tags:
+  - kernel
+
+- name: add modules to initramfs (arch)
+  lineinfile:
+    path: /etc/mkinitcpio.conf
+    regexp: '^MODULES='
+    line: MODULES="btusb pwm-lpss pwm-lpss-platform"
+    create: yes
+  notify:
+  - mkinitcpio
+  when: ansible_distribution == 'ArchLinux'
+  tags:
+  - kernel
+
+- name: add modules to initramfs (debian)
   lineinfile:
     path: /etc/initramfs-tools/modules
     line: "{{ item }}"
     create: yes
-  notify:
-  - rebuild initramfs
   with_items:
+  - btusb
   - pwm-lpss
   - pwm-lpss-platform
+  notify:
+  - update-initramfs
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
   tags:
   - kernel

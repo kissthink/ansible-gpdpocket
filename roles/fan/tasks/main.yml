@@ -1,10 +1,22 @@
 ---
-- name: install gpdfand dependencies
+
+- name: install gpdfand dependencies (arch)
+  pacman: name="{{ item }}"
+  with_items:
+  - perl-proc-daemon
+  - perl-proc-pid-file
+  - perl-log-dispatch
+  when: ansible_distribution == 'ArchLinux'
+  tags:
+  - fan
+
+- name: install gpdfand dependencies (debian)
   apt: name="{{ item }}"
   with_items:
   - libproc-daemon-perl
   - libproc-pid-file-perl
   - liblog-dispatch-perl
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
   tags:
   - fan
 
@@ -31,16 +43,28 @@
   tags:
   - fan
     
-- name: add suspend script for gpdfand
+- name: add suspend script for gpdfand (arch)
+  copy:
+    src: files/gpdfand
+    dest: /usr/lib/systemd/system-sleep/gpdfand
+    owner: root
+    group: root
+    mode: 0777
+  when: ansible_distribution == 'ArchLinux'
+  tags:
+  - fan
+
+- name: add suspend script for gpdfand (debian)
   copy:
     src: files/gpdfand
     dest: /lib/systemd/system-sleep/gpdfand
     owner: root
     group: root
     mode: 0777
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
   tags:
   - fan
-    
+
 - name: create log path for gpdfand
   file:
     path: /var/log/gpdfand

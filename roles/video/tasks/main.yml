@@ -1,5 +1,17 @@
 ---
-- name: install necessary packages for video acceleration
+- name: install necessary packages for video acceleration (arch)
+  pacman: name="{{ item }}"
+  with_items:
+  - gst-libav
+  - gst-plugins-bad
+  - gstreamer-vaapi
+  - mesa
+  - xf86-video-intel
+  when: ansible_distribution == 'ArchLinux'
+  tags:
+  - video
+
+- name: install necessary packages for video acceleration (debian)
   apt: name="{{ item }}"
   with_items:
   - gstreamer1.0-libav
@@ -9,6 +21,7 @@
   - mesa-utils
   - va-driver-all
   - vainfo
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
   tags:
   - video
 

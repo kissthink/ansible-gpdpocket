@@ -6,13 +6,3 @@
     create: yes
   tags:
   - bluetooth
-
-- name: add bluetooth module to initramfs
-  lineinfile:
-    path: /etc/initramfs-tools/modules
-    line: btusb
-    create: yes
-  notify:
-  - rebuild initramfs
-  tags:
-  - bluetooth

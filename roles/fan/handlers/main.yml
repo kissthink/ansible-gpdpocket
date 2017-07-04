@@ -1,8 +1,6 @@
 ---
 - name: reload systemd
-  systemd:
-    name: gpdfand
-    daemon_reload: yes
+  systemd: daemon_reload=yes
 
 - name: enable service
   service:

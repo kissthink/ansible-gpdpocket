@@ -10,20 +10,22 @@ else
   exit 1
 fi
 
-# setup wifi
-echo "setting up wifi..."
+# copy wifi config
+echo "copying wifi config..."
 if [ "$DISTRO" = "arch" ]; then
-  FIRMWARE_PREFIX='/usr'
+  cp -f roles/wifi/files/brcmfmac4356-pcie.txt /usr/lib/firmware/brcm/brcmfmac4356-pcie.txt
+elif [ "$DISTRO" = "debian" ]; then
+  cp -f roles/wifi/files/brcmfmac4356-pcie.txt /lib/firmware/brcm/brcmfmac4356-pcie.txt
 fi
 
-if [ ! -f ${FIRMWARE_PREFIX}/lib/firmware/brcm/brcmfmac4356-pcie.txt ]; then
-  cp roles/wifi/files/brcmfmac4356-pcie.txt ${FIRMWARE_PREFIX}/lib/firmware/brcm/brcmfmac4356-pcie.txt
-  modprobe -r brcmfmac
-  modprobe brcmfmac
+# enable wifi
+echo "enabling wifi..."
+modprobe -r brcmfmac
+modprobe brcmfmac
 
-  # prompt for wifi connection
-  echo "Please connect to a WiFi network, then press return to continue:"
-  read
+# prompt for wifi connection
+echo "Please connect to a WiFi network, then press return to continue:"
+read
 fi
 
 # wait for internet connection
@@ -34,15 +36,15 @@ done
 
 # install ansible
 echo "installing essential packages..."
-if [ "$DISTRO" = "debian" ]; then
+if [ "$DISTRO" = "arch" ]; then
+  pacman -Sy --noconfirm ansible unzip wget
+elif [ "$DISTRO" = "debian" ]; then
   rm -f /var/lib/dpkg/lock
   apt-get update
   apt-get -y install software-properties-common python-software-properties
   add-apt-repository -y ppa:ansible/ansible
   apt-get update
   apt-get -y install ansible unzip wget
-elif [ "$DISTRO" = "arch" ]; then
-  pacman -Sy --noconfirm ansible unzip wget
 fi
 
 # update ansible code

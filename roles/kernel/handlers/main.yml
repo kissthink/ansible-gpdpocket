@@ -1,3 +1,6 @@
 ---
-- name: rebuild initramfs
+- name: update-initramfs
   shell: update-initramfs -u -k all
+
+- name: mkinitcpio
+  shell: mkinitcpio -c /etc/mkinitcpio.conf -g /boot/linux-custom.img -k $(ls /usr/lib/modules/ |grep custom |sort |head -n1)
