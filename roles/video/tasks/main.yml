@@ -1,5 +1,5 @@
 ---
-- name: install necessary packages for video acceleration (arch)
+- name: install necessary packages for video acceleration [arch]
   pacman: name="{{ item }}"
   with_items:
   - gst-libav
@@ -11,7 +11,7 @@
   tags:
   - video
 
-- name: install necessary packages for video acceleration (debian)
+- name: install necessary packages for video acceleration [debian]
   apt: name="{{ item }}"
   with_items:
   - gstreamer1.0-libav

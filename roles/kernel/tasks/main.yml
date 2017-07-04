@@ -1,5 +1,5 @@
 ---
-- name: install kernel build dependencies (arch)
+- name: install kernel build dependencies [arch]
   pacman: item="{{ item }}"
   with_items:
   - base-devel
@@ -13,7 +13,7 @@
   tags:
   - kernel
 
-- name: install kernel build dependencies (debian)
+- name: install kernel build dependencies [debian]
   apt: item="{{ item }}"
   with_items:
   - build-essential
@@ -59,7 +59,7 @@
   tags:
   - kernel
 
-- name: add modules to initramfs (arch)
+- name: add modules to initramfs [arch]
   lineinfile:
     path: /etc/mkinitcpio.conf
     regexp: '^MODULES='
@@ -71,7 +71,7 @@
   tags:
   - kernel
 
-- name: add modules to initramfs (debian)
+- name: add modules to initramfs [debian]
   lineinfile:
     path: /etc/initramfs-tools/modules
     line: "{{ item }}"

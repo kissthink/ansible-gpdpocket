@@ -1,5 +1,5 @@
 ---
- - name: install cpu related packages (arch)
+ - name: install cpu related packages [arch]
    pacman: name="{{ item }}"
    with_items:
    - intel-ucode
@@ -9,8 +9,8 @@
    when: ansible_distribution == 'Archlinux'
    tags:
    - cpu
-
-- name: install cpu related packages (debian)
+  
+- name: install cpu related packages [debian]
   apt: name="{{ item }}"
   with_items:
   - intel-microcode

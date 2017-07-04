@@ -1,5 +1,5 @@
 ---
-- name: copy wifi config file to device (arch)
+- name: copy wifi config file to device [arch]
   copy:
     src: files/brcmfmac4356-pcie.txt
     dest: /usr/lib/firmware/brcm/brcmfmac4356-pcie.txt
@@ -10,7 +10,7 @@
   tags:
   - wifi
 
-- name: copy wifi config file to device (debian)
+- name: copy wifi config file to device [debian]
   copy:
     src: files/brcmfmac4356-pcie.txt
     dest: /lib/firmware/brcm/brcmfmac4356-pcie.txt

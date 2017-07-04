@@ -1,6 +1,6 @@
 ---
 
-- name: install gpdfand dependencies (arch)
+- name: install gpdfand dependencies [arch]
   pacman: name="{{ item }}"
   with_items:
   - perl-proc-daemon
@@ -10,7 +10,7 @@
   tags:
   - fan
 
-- name: install gpdfand dependencies (debian)
+- name: install gpdfand dependencies [debian]
   apt: name="{{ item }}"
   with_items:
   - libproc-daemon-perl
@@ -43,7 +43,7 @@
   tags:
   - fan
     
-- name: add suspend script for gpdfand (arch)
+- name: add suspend script for gpdfand [arch]
   copy:
     src: files/gpdfand
     dest: /usr/lib/systemd/system-sleep/gpdfand
@@ -54,7 +54,7 @@
   tags:
   - fan
 
-- name: add suspend script for gpdfand (debian)
+- name: add suspend script for gpdfand [debian]
   copy:
     src: files/gpdfand
     dest: /lib/systemd/system-sleep/gpdfand
