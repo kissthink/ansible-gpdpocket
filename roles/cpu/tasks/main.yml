@@ -1,15 +1,15 @@
 ---
- - name: install cpu related packages [arch]
-   pacman: name="{{ item }}"
-   with_items:
-   - intel-ucode
-   - i2c-tools
-   - thermald
-   - tlp
-   when: ansible_distribution == 'Archlinux'
-   tags:
-   - cpu
-  
+- name: install cpu related packages [arch]
+  pacman: name="{{ item }}"
+  with_items:
+  - intel-ucode
+  - i2c-tools
+  - thermald
+  - tlp
+  when: ansible_distribution == 'Archlinux'
+  tags:
+  - cpu
+
 - name: install cpu related packages [debian]
   apt: name="{{ item }}"
   with_items:
