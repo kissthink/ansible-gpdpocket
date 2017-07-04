@@ -14,8 +14,8 @@
     path: "{{ item }}"
     state: absent
   with_items:
-  - /etc/X11/Xsession.d/99touchscreen
   - /etc/X11/Xsession.d/98touchscreen
+  - /etc/X11/Xsession.d/99touchscreen
   tags:
   - cleanup
   
