@@ -1,5 +1,15 @@
 #!/bin/sh
 
+# determine distro
+if [ -f /usr/bin/apt-get ]
+  DISTRO="debian"
+elif [ -f /usr/bin/pacman ]
+  DISTRO="arch"
+else
+  echo ERROR: Distribution not supported
+  exit 1
+fi
+
 # setup wifi
 echo "setting up wifi..."
 if [ ! -f /lib/firmware/brcm/brcmfmac4356-pcie.txt ]; then
@@ -20,10 +30,16 @@ done
 
 # install ansible
 echo "installing essential packages..."
-rm -f /var/lib/dpkg/lock
-add-apt-repository -y ppa:ansible/ansible
-apt-get update
-apt-get -y install ansible unzip wget
+if [ "$DISTRO" = "debian" ]; then
+  rm -f /var/lib/dpkg/lock
+  apt-get update
+  apt-get -y install software-properties-common python-software-properties
+  add-apt-repository -y ppa:ansible/ansible
+  apt-get update
+  apt-get -y install ansible unzip wget
+elif [ "$DISTRO" = "arch" ]; then
+  pacman -Sy --noconfirm ansible unzip wget
+fi
 
 # update ansible code
 echo "downloading latest ansible code..."
