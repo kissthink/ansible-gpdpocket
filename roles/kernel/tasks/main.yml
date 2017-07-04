@@ -9,7 +9,7 @@
   - kmod
   - git
   - xmlto
-  when: ansible_distribution == 'ArchLinux
+  when: ansible_distribution == 'ArchLinux'
   tags:
   - kernel
 
