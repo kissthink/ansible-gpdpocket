@@ -51,7 +51,7 @@
   tags:
   - kernel
   
-- name: install kernel modules
+- name: install kernel
   make:
     chdir: /usr/src/linux-sunxi
     target: install
