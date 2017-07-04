@@ -1,6 +1,6 @@
 ---
 - name: install kernel build dependencies [arch]
-  pacman: item="{{ item }}"
+  pacman: name="{{ item }}"
   with_items:
   - base-devel
   - bc
@@ -14,7 +14,7 @@
   - kernel
 
 - name: install kernel build dependencies [debian]
-  apt: item="{{ item }}"
+  apt: name="{{ item }}"
   with_items:
   - build-essential
   - git
