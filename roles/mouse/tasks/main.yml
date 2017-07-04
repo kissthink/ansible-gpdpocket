@@ -1,0 +1,10 @@
+---
+- name: create scrolling config
+  copy:
+    src: files/03scrolling
+    dest: /etc/X11/Xsession.d/
+    owner: root
+    group: root
+    mode: 0777
+  tags:
+  - mouse
