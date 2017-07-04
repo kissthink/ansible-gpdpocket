@@ -12,8 +12,12 @@ fi
 
 # setup wifi
 echo "setting up wifi..."
-if [ ! -f /lib/firmware/brcm/brcmfmac4356-pcie.txt ]; then
-  cp roles/wifi/files/brcmfmac4356-pcie.txt /lib/firmware/brcm/brcmfmac4356-pcie.txt
+if [ "$DISTRO" = "arch" ]; then
+  FIRMWARE_PREFIX='/usr'
+fi
+
+if [ ! -f ${FIRMWARE_PREFIX}/lib/firmware/brcm/brcmfmac4356-pcie.txt ]; then
+  cp roles/wifi/files/brcmfmac4356-pcie.txt ${FIRMWARE_PREFIX}/lib/firmware/brcm/brcmfmac4356-pcie.txt
   modprobe -r brcmfmac
   modprobe brcmfmac
 
