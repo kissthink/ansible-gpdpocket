@@ -41,3 +41,12 @@
   file:
     path: /root/ansible-gpdpocket/
     state: absent
+  tags:
+  - cleanup
+
+- name: remove udev config for bluetooth (no longer needed)
+  file:
+    path: /etc/udev/rules.d/99-local-bluetooth.rules
+    state: absent
+  tags:
+  - cleanup
