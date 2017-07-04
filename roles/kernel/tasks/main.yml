@@ -24,7 +24,7 @@
   tags:
   - kernel
 
-- name: fetch latest kernel sources
+- name: fetch latest kernel sources (this will take a while)
   git:
     repo: https://github.com/jwrdegoede/linux-sunxi.git
     dest: /usr/src/linux-sunxi
@@ -36,14 +36,14 @@
 - name: build kernel (this will take a while)
   make:
     chdir: /usr/src/linux-sunxi
+    target: -j9
     params:
       LOCALVERSION: -custom
-      NUM_THREADS: 9
   when: kernel_sources.changed
   tags:
   - kernel
 
-- name: install kernel modules (this will take a while)
+- name: install kernel modules
   make:
     chdir: /usr/src/linux-sunxi
     target: modules_install
@@ -51,7 +51,7 @@
   tags:
   - kernel
   
-- name: install kernel modules (this will take a while)
+- name: install kernel modules
   make:
     chdir: /usr/src/linux-sunxi
     target: install
