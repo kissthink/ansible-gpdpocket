@@ -28,6 +28,7 @@
   git:
     repo: https://github.com/jwrdegoede/linux-sunxi.git
     dest: /usr/src/linux-sunxi
+    version: caa7508b17e53c655fea113c7730f48f0c758d5c
     force: yes
   register: kernel_sources
   tags:
