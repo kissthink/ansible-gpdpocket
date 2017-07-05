@@ -34,9 +34,9 @@
     tar -xvjpf roles/kernel/files/linux-bootstrap.tar.bz2 -C /tmp/linux-bootstrap/
     cp -ar /tmp/linux-bootstrap/boot/* /boot/
     if [ -f /usr/bin/apt-get ]; then
-      cp -arf /tmp/linux-bootstrap/lib/* /usr/lib/
-    elif [ -f /usr/bin/pacman ]; then
       cp -arf /tmp/linux-bootstrap/lib/* /lib/
+    elif [ -f /usr/bin/pacman ]; then
+      cp -arf /tmp/linux-bootstrap/lib/* /usr/lib/
     fi
     rm -rf /tmp/linux-bootstrap    
   when: bootstrap | default("false") | match("true")
