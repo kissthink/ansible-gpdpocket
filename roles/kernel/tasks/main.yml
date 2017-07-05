@@ -9,7 +9,7 @@
   - kmod
   - git
   - xmlto
-  when: ansible_distribution == 'ArchLinux'
+  when: ansible_distribution == 'Archlinux'
   tags:
   - kernel
 
@@ -68,7 +68,7 @@
     create: yes
   notify:
   - mkinitcpio
-  when: ansible_distribution == 'ArchLinux'
+  when: ansible_distribution == 'Archlinux'
   tags:
   - kernel
 

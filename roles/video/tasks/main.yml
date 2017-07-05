@@ -7,7 +7,7 @@
   - gstreamer-vaapi
   - mesa
   - xf86-video-intel
-  when: ansible_distribution == 'ArchLinux'
+  when: ansible_distribution == 'Archlinux'
   tags:
   - video
 

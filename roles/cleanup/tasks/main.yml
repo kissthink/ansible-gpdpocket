@@ -39,7 +39,7 @@
   
 - name: remove old copies of git repository
   file:
-    path: /root/ansible-gpdpocket/
+    path: /root/ansible-gpdpocket
     state: absent
   tags:
   - cleanup

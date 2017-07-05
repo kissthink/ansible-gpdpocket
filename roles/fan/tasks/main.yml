@@ -5,7 +5,7 @@
   - perl-proc-daemon
   - perl-proc-pid-file
   - perl-log-dispatch
-  when: ansible_distribution == 'ArchLinux'
+  when: ansible_distribution == 'Archlinux'
   tags:
   - fan
 
@@ -46,7 +46,7 @@
     owner: root
     group: root
     mode: 0777
-  when: ansible_distribution == 'ArchLinux'
+  when: ansible_distribution == 'Archlinux'
   tags:
   - fan
 
