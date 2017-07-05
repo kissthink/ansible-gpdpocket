@@ -37,7 +37,8 @@
       cp -arf /tmp/linux-bootstrap/lib/* /usr/lib/
     elif [ -f /usr/bin/pacman ]; then
       cp -arf /tmp/linux-bootstrap/lib/* /lib/
-    elif    
+    fi
+    rm -rf /tmp/linux-bootstrap    
   when: bootstrap | default("false") | match("true")
   tags:
   - kernel
