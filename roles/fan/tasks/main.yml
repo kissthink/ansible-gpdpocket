@@ -1,5 +1,4 @@
 ---
-
 - name: install gpdfand dependencies [arch]
   pacman: name="{{ item }}"
   with_items:
@@ -37,9 +36,6 @@
     owner: root
     group: root
     mode: 0644
-  notify:
-  - reload systemd
-  - enable service
   tags:
   - fan
     
@@ -74,3 +70,14 @@
     mode: 0666
   tags:
   - fan
+
+- name: reload systemd
+  systemd:
+    name: gpdfand
+    daemon_reload: yes
+
+- name: enable and start fan service (before kernel compile)
+  service:
+    name: gpdfand
+    enabled: yes
+    state: started

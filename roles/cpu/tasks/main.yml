@@ -6,6 +6,8 @@
   - i2c-tools
   - thermald
   - tlp
+  notify:
+  - enable services
   when: ansible_distribution == 'Archlinux'
   tags:
   - cpu
@@ -17,6 +19,8 @@
   - lm-sensors
   - thermald
   - tlp
+  notify:
+  - enable services
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
   tags:
   - cpu
