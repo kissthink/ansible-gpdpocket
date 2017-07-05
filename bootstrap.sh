@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # determine distro
-if [ -f /usr/bin/apt-get ]
+if [ -f /usr/bin/apt-get ]; then
   DISTRO="debian"
-elif [ -f /usr/bin/pacman ]
+elif [ -f /usr/bin/pacman ]; then
   DISTRO="arch"
 else
   echo ERROR: Distribution not supported
