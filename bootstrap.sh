@@ -38,11 +38,21 @@ echo "installing essential packages..."
 if [ "$DISTRO" = "arch" ]; then
   pacman -Sy --noconfirm ansible unzip wget
 elif [ "$DISTRO" = "debian" ]; then
-  rm -f /var/lib/dpkg/lock
+  echo "waiting for apt to be available..."
+  while fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
+    sleep 1
+  done
+  
   apt-get update
   apt-get -y install software-properties-common python-software-properties
   add-apt-repository -y ppa:ansible/ansible
   apt-get update
+  
+  echo "waiting for apt to be available..."
+  while fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
+    sleep 1
+  done
+  
   apt-get -y install ansible unzip wget
 fi
 

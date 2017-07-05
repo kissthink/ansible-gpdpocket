@@ -1,6 +1,9 @@
 ---
-- name: install cpanm dependencies [arch]
-  pacman: name=cpanminus
+- name: install perl dependencies [arch]
+  pacman: name="{{ item }}"
+  with_items:
+  - cpanminus
+  - perl
   when: ansible_distribution == 'Archlinux'
   tags:
   - fan
@@ -21,6 +24,7 @@
   - libproc-daemon-perl
   - libproc-pid-file-perl
   - liblog-dispatch-perl
+  - perl
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
   tags:
   - fan
