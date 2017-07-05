@@ -1,26 +1,44 @@
 ---
-- name: install kernel build dependencies [arch]
+- name: install kernel dependencies [arch]
   pacman: name="{{ item }}"
   with_items:
   - base-devel
+  - bzip2
   - bc
   - docbook-xsl
   - inetutils
   - kmod
   - git
+  - tar
   - xmlto
   when: ansible_distribution == 'Archlinux'
   tags:
   - kernel
 
-- name: install kernel build dependencies [debian]
+- name: install kernel dependencies [debian]
   apt: name="{{ item }}"
   with_items:
   - build-essential
+  - bzip2
   - git
   - libncurses5-dev
   - libssl-dev
+  - tar
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  tags:
+  - kernel
+
+- name: install bootstrap kernel
+  shell: |
+    mkdir -p /tmp/linux-bootstrap
+    tar -xvjpf roles/kernel/files/linux-bootstrap.tar.bz2 -C /tmp/linux-bootstrap/
+    cp -ar /tmp/linux-bootstrap/boot/* /boot/
+    if [ -f /usr/bin/apt-get ]; then
+      cp -arf /tmp/linux-bootstrap/lib/* /usr/lib/
+    elif [ -f /usr/bin/pacman ]; then
+      cp -arf /tmp/linux-bootstrap/lib/* /lib/
+    elif    
+  when: bootstrap | default("false") | match("true")
   tags:
   - kernel
 
@@ -30,6 +48,7 @@
     dest: /usr/src/linux-sunxi
     version: caa7508b17e53c655fea113c7730f48f0c758d5c
     force: yes
+  when: bootstrap | default("false") | match("false")
   register: kernel_sources
   tags:
   - kernel

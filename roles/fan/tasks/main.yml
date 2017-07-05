@@ -11,6 +11,7 @@
 - name: install perl dependencies [arch]
   cpanm: name="{{ item }}"
   with_items:
+  - 'Date::Format'
   - 'Proc::Daemon'
   - 'Proc::PID::File'
   - 'Log::Dispatch'
