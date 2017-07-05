@@ -26,7 +26,6 @@ modprobe brcmfmac
 # prompt for wifi connection
 echo "Please connect to a WiFi network, then press return to continue:"
 read
-fi
 
 # wait for internet connection
 echo "waiting for internet connection..."
