@@ -47,7 +47,7 @@
   git:
     repo: https://github.com/jwrdegoede/linux-sunxi.git
     dest: /usr/src/linux-sunxi
-    version: caa7508b17e53c655fea113c7730f48f0c758d5c
+    version: 52d94b5c09fa5464da113ff8c93c58e31e4a64d4
     force: yes
   when: bootstrap | default("false") | match("false")
   register: kernel_sources
