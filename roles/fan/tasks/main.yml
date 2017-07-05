@@ -1,10 +1,16 @@
 ---
-- name: install gpdfand dependencies [arch]
-  pacman: name="{{ item }}"
+- name: install cpanm dependencies [arch]
+  pacman: name=cpanminus
+  when: ansible_distribution == 'Archlinux'
+  tags:
+  - fan
+
+- name: install perl dependencies [arch]
+  cpanm: name="{{ item }}"
   with_items:
-  - perl-proc-daemon
-  - perl-proc-pid-file
-  - perl-log-dispatch
+  - 'Proc::Daemon'
+  - 'Proc::PID::File'
+  - 'Log::Dispatch'
   when: ansible_distribution == 'Archlinux'
   tags:
   - fan
