@@ -35,6 +35,7 @@
     cp -ar /tmp/linux-bootstrap/boot/* /boot/
     if [ -f /usr/bin/apt-get ]; then
       cp -arf /tmp/linux-bootstrap/lib/* /lib/
+      update-initramfs -u -k 4.12.0-custom
     elif [ -f /usr/bin/pacman ]; then
       cp -arf /tmp/linux-bootstrap/lib/* /usr/lib/
     fi
