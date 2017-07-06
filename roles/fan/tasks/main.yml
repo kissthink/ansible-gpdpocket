@@ -2,6 +2,7 @@
 - name: install perl dependencies [arch]
   pacman: name="{{ item }}"
   with_items:
+  - base-devel
   - cpanminus
   - perl
   when: ansible_distribution == 'Archlinux'

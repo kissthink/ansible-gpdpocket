@@ -1,13 +1,13 @@
 ---
+- name: install pulseaudio
+  package: name=pulseaudio
+  tags:
+  - audio
+
 - name: create ucm directory
   file:
     path: /usr/share/alsa/ucm/chtrt5645
     state: directory
-  tags:
-  - audio
-
-- name: install pulseaudio
-  package: name=pulseaudio
   tags:
   - audio
 
