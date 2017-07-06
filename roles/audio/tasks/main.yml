@@ -6,6 +6,11 @@
   tags:
   - audio
 
+- name: install pulseaudio
+  package: name=pulseaudio
+  tags:
+  - audio
+
 - name: copy audio config files to device
   copy:
     src: "{{ item }}"
