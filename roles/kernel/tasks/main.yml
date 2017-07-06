@@ -3,6 +3,7 @@
   pacman: name="{{ item }}"
   with_items:
   - base-devel
+  - btrfs-progs
   - bzip2
   - bc
   - docbook-xsl
@@ -38,7 +39,7 @@
       update-initramfs -u -k 4.12.0-custom
     elif [ -f /usr/bin/pacman ]; then
       cp -arf /tmp/linux-bootstrap/lib/* /usr/lib/
-      mkinitcpio -c /etc/mkinitcpio.conf -g /boot/linux-custom.img -k 4.12.0-custom
+      mkinitcpio -c /etc/mkinitcpio.conf -g /boot/linux-custom.img -k 4.12.0-custom || true
     fi
     rm -rf /tmp/linux-bootstrap    
   when: bootstrap | default("false") | match("true")
