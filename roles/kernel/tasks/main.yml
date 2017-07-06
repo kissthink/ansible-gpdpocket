@@ -40,6 +40,7 @@
     elif [ -f /usr/bin/pacman ]; then
       cp -arf /tmp/linux-bootstrap/lib/* /usr/lib/
       mkinitcpio -c /etc/mkinitcpio.conf -g /boot/linux-custom.img -k 4.12.0-custom || true
+      pacman -R --noconfirm linux
     fi
     rm -rf /tmp/linux-bootstrap    
   when: bootstrap | default("false") | match("true")
