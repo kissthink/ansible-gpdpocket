@@ -95,7 +95,7 @@
   tags:
   - kernel
 
-- name: change module loading order [arch]
+- name: change hook loading order [arch]
   lineinfile:
     path: /etc/mkinitcpio.conf
     regexp: '^HOOKS='
