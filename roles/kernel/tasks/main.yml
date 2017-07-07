@@ -95,6 +95,18 @@
   tags:
   - kernel
 
+- name: change module loading order [arch]
+  lineinfile:
+    path: /etc/mkinitcpio.conf
+    regexp: '^HOOKS='
+    line: HOOKS="base udev block autodetect modconf filesystems fsck"
+    create: yes
+  notify:
+  - mkinitcpio
+  when: ansible_distribution == 'Archlinux'
+  tags:
+  - kernel
+
 - name: add modules to initramfs [debian]
   lineinfile:
     path: /etc/initramfs-tools/modules
