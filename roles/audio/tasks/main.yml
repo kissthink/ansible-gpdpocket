@@ -53,3 +53,18 @@
     line: 'set-default-source 1'
   tags:
   - audio
+  
+- name: install necessary packages for audio acceleration [debian]
+  apt: name="{{ item }}"
+  with_items:
+  - gstreamer1.0-libav
+  - gstreamer1.0-vaapi
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  tags:
+  - audio
+
+- name: install additional audio acceleration package if on ubuntu [ubuntu only]
+  apt: name=gstreamer1.0-plugins-bad-faad
+  when: ansible_distribution == 'Ubuntu'
+  tags:
+  - audio
