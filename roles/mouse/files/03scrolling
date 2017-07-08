@@ -1,3 +1,7 @@
-#!/bin/sh
+# -*- sh -*-
+# Xsession.d script to set xinput properties for scrolling
+#
+# This file is sourced by Xsession(5), not executed.
+
 xinput set-prop "pointer:SINO WEALTH Gaming Keyboard" "libinput Button Scrolling Button" 3
 xinput set-prop "pointer:SINO WEALTH Gaming Keyboard" "libinput Scroll Method Enabled" 0 0 1

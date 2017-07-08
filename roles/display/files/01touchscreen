@@ -1,2 +1,6 @@
-#!/bin/sh
-/usr/bin/xinput set-prop 11 "Coordinate Transformation Matrix" 0 1 0 -1 0 1 0 0 1
+# -*- sh -*-
+# Xsession.d script to set xinput properties for touchscreen
+#
+# This file is sourced by Xsession(5), not executed.
+
+xinput set-prop 11 "Coordinate Transformation Matrix" 0 1 0 -1 0 1 0 0 1
