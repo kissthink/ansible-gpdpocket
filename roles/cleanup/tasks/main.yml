@@ -51,10 +51,12 @@
   tags:
   - cleanup
   
-  - name: remove old monitors.xml configs
-    file:
-      path: "{{ item }}"
-      state: absent
-    with_items:
-    - /var/lib/lightdm/.config/monitors.xml
-    - /var/lib/gdm3/.config/monitors.xml
+- name: remove old monitors.xml configs
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+  - "/var/lib/lightdm/.config/monitors.xml"
+  - "/var/lib/gdm3/.config/monitors.xml"
+  tags:
+  - cleanup
