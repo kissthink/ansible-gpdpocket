@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   connection: local
+
   roles:
   - audio
   - cleanup
@@ -14,6 +15,7 @@
   - video
   - wifi
 
+tasks:
 - name: reboot [bootstrap]
   shell: reboot
   async: 1
