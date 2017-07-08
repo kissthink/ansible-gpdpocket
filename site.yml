@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
   connection: local
-
+  
   roles:
   - audio
   - cleanup
@@ -15,10 +15,10 @@
   - video
   - wifi
 
-tasks:
-- name: reboot [bootstrap]
-  shell: reboot
-  async: 1
-  poll: 0
-  ignore_errors: true
-  when: bootstrap | default("false") | match("true")
+  tasks:
+  - name: reboot [bootstrap]
+    shell: reboot
+    async: 1
+    poll: 0
+    ignore_errors: true
+    when: bootstrap | default("false") | match("true")
