@@ -5,7 +5,7 @@
     dest: /etc/X11/Xsession.d/
     owner: root
     group: root
-    mode: 0777
+    mode: 0644
   register: xorg_configs
   with_items:
   - files/01touchscreen
@@ -13,26 +13,35 @@
   tags:
   - display
 
-- name: copy monitors.xml config in to place
-  shell: |
-    # install for users
-    for USER in $(ls /home); do
-      mkdir -p /home/${USER}/.config/
-      cp -f roles/display/files/monitors.xml /home/${USER}/.config/monitors.xml
-      chown -R ${USER}:${USER} /home/${USER}/.config/
-    done
-    
-    # install for gdm
-    if [ -d "/var/lib/gdm3/.config" ]; then
-      cp -f roles/display/files/monitors.xml /var/lib/gdm3/.config/monitors.xml
-      chown gdm:gdm /var/lib/gdm3/.config/monitors.xml
-    fi
-    
-    # install for lightdm
-    if [ -d "/var/lib/lightdm/.config" ]; then
-      cp -f roles/display/files/monitors.xml /var/lib/lightdm/.config/monitors.xml
-      chown lightdm:lightdm /var/lib/lightdm/.config/monitors.xml
-    fi
-  when: xorg_configs.changed
+- name: copy rotate-display script
+  copy:
+    src: files/gpdrotate.sh
+    dest: /usr/local/sbin/gpdrotate
+    owner: root
+    group: root
+    mode: 0777
+  tags:
+  - display
+
+- name: copy systemd service for gpdrotate
+  copy:
+    src: files/gpdrotate.service
+    dest: /etc/systemd/system/gpdrotate.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+  - reload systemd
+  - enable service
+  tags:
+  - display
+  
+- name: copy xsession.d script for gpdrotate
+  copy:
+    src: files/98gpdrotate
+    dest: /etc/X11/Xsession.d/98gpdrotate
+    owner: root
+    group: root
+    mode: 0644
   tags:
   - display

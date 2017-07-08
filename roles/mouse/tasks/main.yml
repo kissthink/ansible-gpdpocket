@@ -5,6 +5,6 @@
     dest: /etc/X11/Xsession.d/
     owner: root
     group: root
-    mode: 0777
+    mode: 0644
   tags:
   - mouse

@@ -41,16 +41,16 @@
   tags:
   - fan
 
-- name: copy systemd service for gpdfand
-  copy:
-    src: files/gpdfand.service
-    dest: /etc/systemd/system/gpdfand.service
+- name: create log path for gpdfand
+  file:
+    path: /var/log/gpdfand
+    state: directory
     owner: root
     group: root
-    mode: 0644
+    mode: 0666
   tags:
   - fan
-    
+
 - name: add suspend script for gpdfand [arch]
   copy:
     src: files/gpdfand
@@ -73,23 +73,15 @@
   tags:
   - fan
 
-- name: create log path for gpdfand
-  file:
-    path: /var/log/gpdfand
-    state: directory
+- name: copy systemd service for gpdfand
+  copy:
+    src: files/gpdfand.service
+    dest: /etc/systemd/system/gpdfand.service
     owner: root
     group: root
-    mode: 0666
+    mode: 0644
+  notify:
+  - reload systemd
+  - enable service
   tags:
   - fan
-
-- name: reload systemd
-  systemd:
-    name: gpdfand
-    daemon_reload: yes
-
-- name: enable and start fan service (before kernel compile)
-  service:
-    name: gpdfand
-    enabled: yes
-    state: started

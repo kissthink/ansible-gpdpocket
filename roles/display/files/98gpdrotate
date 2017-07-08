@@ -1,0 +1,6 @@
+# -*- sh -*-
+# Xsession.d script to start gpdrotate
+#
+# This file is sourced by Xsession(5), not executed.
+
+exec /usr/local/sbin/gpdrotate 1 &

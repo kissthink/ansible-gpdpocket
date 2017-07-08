@@ -13,3 +13,10 @@
   - update
   - video
   - wifi
+
+- name: reboot [bootstrap]
+  shell: reboot
+  async: 1
+  poll: 0
+  ignore_errors: true
+  when: bootstrap | default("false") | match("true")

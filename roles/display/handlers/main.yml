@@ -1,0 +1,11 @@
+---
+- name: reload systemd
+  systemd:
+    name: gpdrotate
+    daemon_reload: yes
+
+- name: enable service
+  service:
+    name: gpdrotate
+    enabled: yes
+    state: started
