@@ -65,4 +65,4 @@ cd /tmp/ansible-gpdpocket/chrisaw-ansible*
 
 # run ansible scripts
 echo "starting ansible playbook..."
-ANSIBLE_NOCOWS=1 ansible-playbook site.yml -e "bootstrap=true" && rm -rf /tmp/ansible-gpdpocket && reboot
+ANSIBLE_NOCOWS=1 ansible-playbook site.yml -e "bootstrap=true" && cd && rm -rf /tmp/ansible-gpdpocket && reboot

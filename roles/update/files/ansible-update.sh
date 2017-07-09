@@ -7,6 +7,12 @@ else
   BRANCH="master"
 fi
 
+# wait for internet connection
+echo "waiting for internet connection..."
+while ! ping -c1 google.com &>/dev/null; do
+  sleep 1
+done
+
 # update ansible code
 echo "downloading latest ansible code..."
 mkdir /tmp/ansible-gpdpocket
