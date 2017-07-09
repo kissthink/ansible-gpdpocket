@@ -65,9 +65,4 @@ cd /tmp/ansible-gpdpocket/chrisaw-ansible*
 
 # run ansible scripts
 echo "starting ansible playbook..."
-ANSIBLE_NOCOWS=1 ansible-playbook site.yml -e "bootstrap=true"
-
-# cleanup
-echo "performing clean up..."
-cd
-rm -rf /tmp/ansible-gpdpocket
+ANSIBLE_NOCOWS=1 ansible-playbook site.yml -e "bootstrap=true" && rm -rf /tmp/ansible-gpdpocket && reboot
