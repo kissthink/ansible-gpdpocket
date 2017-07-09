@@ -1,22 +1,11 @@
 #!/bin/sh
 
-# determine distro
-if [ -f /usr/bin/apt-get ]; then
-  DISTRO="debian"
-elif [ -f /usr/bin/pacman ]; then
-  DISTRO="arch"
-else
-  echo ERROR: Distribution not supported
-  exit 1
-fi
+# set exit on error
+set -e
 
 # copy wifi config
-echo "copying wifi config..."
-if [ "$DISTRO" = "arch" ]; then
-  cp -f roles/wifi/files/brcmfmac4356-pcie.txt /usr/lib/firmware/brcm/brcmfmac4356-pcie.txt
-elif [ "$DISTRO" = "debian" ]; then
-  cp -f roles/wifi/files/brcmfmac4356-pcie.txt /lib/firmware/brcm/brcmfmac4356-pcie.txt
-fi
+echo "copying wifi config..."e
+cp -f roles/wifi/files/brcmfmac4356-pcie.txt /lib/firmware/brcm/brcmfmac4356-pcie.txt || true
 
 # enable wifi
 echo "enabling wifi..."
@@ -35,9 +24,9 @@ done
 
 # install ansible
 echo "installing essential packages..."
-if [ "$DISTRO" = "arch" ]; then
+if [ -f /usr/bin/pacman ]; then
   pacman -Sy --noconfirm ansible unzip wget
-elif [ "$DISTRO" = "debian" ]; then
+elif [ -f /usr/bin/apt-get ]; then
   echo "waiting for apt to be available..."
   while fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
     sleep 1
@@ -65,4 +54,12 @@ cd /tmp/ansible-gpdpocket/chrisaw-ansible*
 
 # run ansible scripts
 echo "starting ansible playbook..."
-ANSIBLE_NOCOWS=1 ansible-playbook site.yml -e "bootstrap=true" && cd && rm -rf /tmp/ansible-gpdpocket && reboot
+ANSIBLE_NOCOWS=1 ansible-playbook site.yml -e "bootstrap=true"
+
+# clean up
+echo "cleaning up..."
+rm -rf /tmp/ansible-gpdpocket
+
+# reboot
+echo "starting reboot..."
+reboot
