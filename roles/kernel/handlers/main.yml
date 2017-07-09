@@ -3,4 +3,4 @@
   shell: update-initramfs -u -k all
 
 - name: mkinitcpio
-  shell: mkinitcpio -c /etc/mkinitcpio.conf -g /boot/initrd.img-$(ls -t /usr/lib/modules/*custom* |head -n1) -k $(ls -t /usr/lib/modules/*custom* |head -n1) || true
+  shell: mkinitcpio -c /etc/mkinitcpio.conf -g /boot/initrd.img-4.12.0-custom -k 4.12.0-custom || true

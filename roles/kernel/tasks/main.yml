@@ -1,9 +1,4 @@
 ---
-- name: mount /boot (if exists)
-  shell: mount /boot || true
-  tags:
-  - kernel
-
 - name: install kernel dependencies [arch]
   pacman: name="{{ item }}"
   with_items:
@@ -34,19 +29,14 @@
 
 - name: install bootstrap kernel
   shell: |
-    mkdir -p /tmp/linux-bootstrap
-    tar -xvjpf roles/kernel/files/linux-bootstrap.tar.bz2 -C /tmp/linux-bootstrap/
-    cp -arf /tmp/linux-bootstrap/boot/* /boot/
+    cp -arf roles/kernel/files/ /
     if [ -f /usr/bin/apt-get ]; then
-      cp -arf /tmp/linux-bootstrap/lib/* /lib/
       update-initramfs -u -k 4.12.0-custom || true
       apt-get -y purge linux-image* linux-headers-*
     elif [ -f /usr/bin/pacman ]; then
-      cp -arf /tmp/linux-bootstrap/lib/* /usr/lib/
       mkinitcpio -c /etc/mkinitcpio.conf -g /boot/initrd.img-4.12.0-custom -k 4.12.0-custom || true
       pacman -R --noconfirm linux
     fi
-    rm -rf /tmp/linux-bootstrap
   when: bootstrap | default("false") | match("true")
   tags:
   - kernel
@@ -80,16 +70,13 @@
   when: kernel_sources.changed
   tags:
   - kernel
-  
-- name: install kernel
-  make:
-    chdir: /usr/src/linux-sunxi
-    target: install
-    params:
-      LOCALVERSION: -custom
+
+- name: install new kernel
+  shell: |
+    mount /boot || true
+    cp -vf /boot/vmlinuz-4.12.0-custom /boot/vmlinuz-4.12.0-custom.old || true
+    cp -vf /usr/src/linux-sunxi/arch/x86/boot/bzImage /boot/vmlinuz-4.12.0-custom
   when: kernel_sources.changed
-  tags:
-  - kernel
 
 - name: add modules to initramfs [arch]
   lineinfile:
