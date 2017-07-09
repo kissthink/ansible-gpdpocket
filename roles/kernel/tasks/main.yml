@@ -1,4 +1,12 @@
 ---
+- name: mount /boot
+  mount:
+    path: /boot
+    state: mounted
+    ignore_errors: yes
+  tags:
+  - kernel
+
 - name: install kernel dependencies [arch]
   pacman: name="{{ item }}"
   with_items:
@@ -70,6 +78,8 @@
   make:
     chdir: /usr/src/linux-sunxi
     target: modules_install
+    params:
+      LOCALVERSION: -custom
   when: kernel_sources.changed
   tags:
   - kernel
@@ -78,6 +88,8 @@
   make:
     chdir: /usr/src/linux-sunxi
     target: install
+    params:
+      LOCALVERSION: -custom
   when: kernel_sources.changed
   tags:
   - kernel
