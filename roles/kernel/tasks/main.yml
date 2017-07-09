@@ -29,6 +29,7 @@
 
 - name: install bootstrap kernel
   shell: |
+    mount /boot || true
     cp -arf roles/kernel/files/* /
     if [ -f /usr/bin/apt-get ]; then
       update-initramfs -u -k 4.12.0-custom || true
