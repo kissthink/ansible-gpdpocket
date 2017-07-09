@@ -33,17 +33,17 @@
   shell: |
     mkdir -p /tmp/linux-bootstrap
     tar -xvjpf roles/kernel/files/linux-bootstrap.tar.bz2 -C /tmp/linux-bootstrap/
-    cp -ar /tmp/linux-bootstrap/boot/* /boot/
+    cp -arf /tmp/linux-bootstrap/boot/* /boot/
     if [ -f /usr/bin/apt-get ]; then
       cp -arf /tmp/linux-bootstrap/lib/* /lib/
-      update-initramfs -u -k 4.12.0-custom
+      update-initramfs -u -k 4.12.0-custom || true
       apt-get -y purge linux-image* linux-headers-*
     elif [ -f /usr/bin/pacman ]; then
       cp -arf /tmp/linux-bootstrap/lib/* /usr/lib/
       mkinitcpio -c /etc/mkinitcpio.conf -g /boot/initrd.img-4.12.0-custom -k 4.12.0-custom || true
       pacman -R --noconfirm linux
     fi
-    rm -rf /tmp/linux-bootstrap    
+    rm -rf /tmp/linux-bootstrap
   when: bootstrap | default("false") | match("true")
   tags:
   - kernel
