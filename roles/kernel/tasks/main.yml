@@ -1,9 +1,6 @@
 ---
 - name: mount /boot (if exists)
-  mount:
-    path: /boot
-    state: mounted
-  ignore_errors: yes
+  shell: mount /boot || true
   tags:
   - kernel
 
