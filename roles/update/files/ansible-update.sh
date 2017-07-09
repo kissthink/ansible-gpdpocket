@@ -1,9 +1,16 @@
 #!/bin/sh
 
+# set branch to download
+if [ "$1" = "--dev" ]; then
+  BRANCH="dev"
+else
+  BRANCH="master"
+fi
+
 # update ansible code
 echo "downloading latest ansible code..."
 mkdir /tmp/ansible-gpdpocket
-wget -O /tmp/ansible-gpdpocket/master.zip https://bitbucket.org/chrisaw/ansible-gpdpocket/get/master.zip
+wget -O /tmp/ansible-gpdpocket/master.zip https://bitbucket.org/chrisaw/ansible-gpdpocket/get/${BRANCH}.zip
 unzip -o /tmp/ansible-gpdpocket/master.zip -d /tmp/ansible-gpdpocket/
 cd /tmp/ansible-gpdpocket/chrisaw-ansible*
 
