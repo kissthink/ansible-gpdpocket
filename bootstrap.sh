@@ -4,8 +4,8 @@
 set -e
 
 # copy wifi config
-echo "copying wifi config..."e
-cp -f roles/wifi/files/brcmfmac4356-pcie.txt /lib/firmware/brcm/brcmfmac4356-pcie.txt || true
+echo "copying wifi config..."
+cp -f roles/wifi/files/brcmfmac4356-pcie.* /lib/firmware/brcm/ || true
 
 # enable wifi
 echo "enabling wifi..."

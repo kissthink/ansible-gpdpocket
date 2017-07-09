@@ -1,4 +1,14 @@
 ---
+- name: copy wifi firmware to device
+  copy:
+    src: files/brcmfmac4356-pcie.bin
+    dest: /lib/firmware/brcm/brcmfmac4356-pcie.bin
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+  - wifi
+
 - name: copy wifi config file to device
   copy:
     src: files/brcmfmac4356-pcie.txt
