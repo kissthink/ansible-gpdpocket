@@ -6,7 +6,7 @@
   - display
 
 - name: install xrandr [debian]
-  apt: name=xrandr
+  apt: name=x11-xserver-utils
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
   tags:
   - display
