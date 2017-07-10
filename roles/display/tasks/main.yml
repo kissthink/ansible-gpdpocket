@@ -43,7 +43,6 @@
     group: root
     mode: 0644
   notify:
-  - reload systemd
   - enable gpdrotate
   tags:
   - display
