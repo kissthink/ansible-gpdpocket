@@ -49,7 +49,12 @@
     owner: root
     group: root
     mode: 0644
+  notify:
+  - update initrd
+  - update grub
   when: kernel_sources.changed
+  tags:
+  - kernel
 
 - name: add modules to initramfs [arch]
   lineinfile:
@@ -58,7 +63,8 @@
     line: MODULES="btusb pwm-lpss pwm-lpss-platform"
     create: yes
   notify:
-  - mkinitcpio
+    - update initrd
+    - update grub
   when: ansible_distribution == 'Archlinux'
   tags:
   - kernel
@@ -70,7 +76,8 @@
     line: HOOKS="base udev block autodetect modconf filesystems fsck"
     create: yes
   notify:
-  - mkinitcpio
+    - update initrd
+    - update grub
   when: ansible_distribution == 'Archlinux'
   tags:
   - kernel
@@ -85,7 +92,8 @@
   - pwm-lpss
   - pwm-lpss-platform
   notify:
-  - update-initramfs
+    - update initrd
+    - update grub
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
   tags:
   - kernel

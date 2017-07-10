@@ -1,6 +1,11 @@
 ---
-- name: update-initramfs
-  shell: update-initramfs -u -k 4.12.0-gpdpocket
+- name: update grub
+  shell: grub-mkconfig -o /boot/grub/grub.cfg
 
-- name: mkinitcpio
-  shell: mkinitcpio -c /etc/mkinitcpio.conf -g /boot/initrd.img-4.12.0-gpdpocket -k 4.12.0-gpdpocket || true
+- name: update initrd
+  shell: |
+    if [ -f /usr/bin/apt-get ]; then
+      update-initramfs -u -k 4.12.0-gpdpocket
+    elif [ -f /usr/bin/pacman ]; then
+      mkinitcpio -c /etc/mkinitcpio.conf -g /boot/initrd.img-4.12.0-gpdpocket -k 4.12.0-gpdpocket || true
+    fi
