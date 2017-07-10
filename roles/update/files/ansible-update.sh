@@ -3,6 +3,10 @@
 # set exit on error
 set -e
 
+# disable sleep
+echo "disabling sleep..."
+systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
 # set branch to download
 if [ "$1" = "--dev" ]; then
   BRANCH="dev"
@@ -31,3 +35,7 @@ ANSIBLE_NOCOWS=1 ansible-playbook site.yml
 echo "performing clean up..."
 cd
 rm -rf /tmp/ansible-gpdpocket
+
+# enable sleep
+echo "enabling sleep..."
+systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
