@@ -28,6 +28,7 @@ echo "installing essential packages..."
 if [ -f /usr/bin/pacman ]; then
   pacman -Sy --noconfirm ansible unzip wget
 elif [ -f /usr/bin/apt-get ]; then
+  # wait for apt availability
   echo "waiting for apt to be available..."
   while fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
     sleep 1
@@ -38,6 +39,7 @@ elif [ -f /usr/bin/apt-get ]; then
   add-apt-repository -y ppa:ansible/ansible
   apt-get update
   
+  # wait for apt availability
   echo "waiting for apt to be available..."
   while fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
     sleep 1
@@ -48,18 +50,15 @@ fi
 
 # update ansible code
 echo "downloading latest ansible code..."
-mkdir /tmp/ansible-gpdpocket
-wget -O /tmp/ansible-gpdpocket/master.zip https://bitbucket.org/chrisaw/ansible-gpdpocket/get/master.zip
-unzip -o /tmp/ansible-gpdpocket/master.zip -d /tmp/ansible-gpdpocket/
-cd /tmp/ansible-gpdpocket/chrisaw-ansible*
+git clone https://github.com/cawilliamson/ansible-gpdpocket.git /usr/src/ansible-gpdpocket
+cd /usr/src/ansible-gpdpocket 
+
+# ensure /boot is mounted
+mount /boot || true
 
 # run ansible scripts
 echo "starting ansible playbook..."
-ANSIBLE_NOCOWS=1 ansible-playbook site.yml -e "bootstrap=true"
-
-# clean up
-echo "cleaning up..."
-rm -rf /tmp/ansible-gpdpocket
+ANSIBLE_NOCOWS=1 ansible-playbook site.yml
 
 # reboot
 echo "starting reboot..."

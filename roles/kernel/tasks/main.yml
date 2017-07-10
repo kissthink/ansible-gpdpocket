@@ -4,13 +4,11 @@
   with_items:
   - base-devel
   - btrfs-progs
-  - bzip2
   - bc
   - git
   - inetutils
   - kmod
   - libelf
-  - tar
   when: ansible_distribution == 'Archlinux'
   tags:
   - kernel
@@ -19,66 +17,38 @@
   apt: name="{{ item }}"
   with_items:
   - build-essential
-  - bzip2
   - git
   - libelf-dev
   - libncurses5-dev
   - libssl-dev
-  - tar
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
   tags:
   - kernel
 
-- name: install bootstrap kernel
-  shell: |
-    mount /boot || true
-    tar -xvpf roles/kernel/files/linux-bootstrap.tar.gz -C /
-    if [ -f /usr/bin/apt-get ]; then
-      update-initramfs -u -k 4.12.0-custom || true
-      apt-get -y purge linux-image* linux-headers-*
-    elif [ -f /usr/bin/pacman ]; then
-      mkinitcpio -c /etc/mkinitcpio.conf -g /boot/initrd.img-4.12.0-custom -k 4.12.0-custom || true
-      pacman -R --noconfirm linux
-    fi
-  when: bootstrap | default("false") | match("true")
-  tags:
-  - kernel
-
-- name: fetch latest kernel sources (this will take a while)
+- name: fetch latest prebuilt kernel (this will take a while)
   git:
-    repo: https://github.com/jwrdegoede/linux-sunxi.git
-    dest: /usr/src/linux-sunxi
+    repo: https://github.com/cawilliamson/kernel-gpdpocket.git
+    dest: /usr/src/linux-gpdpocket
     force: yes
-  when: bootstrap | default("false") | match("false")
   register: kernel_sources
-  tags:
-  - kernel
-
-- name: build kernel (this will take a while)
-  make:
-    chdir: /usr/src/linux-sunxi
-    target: -j5
-    params:
-      LOCALVERSION: -custom
-  when: kernel_sources.changed
   tags:
   - kernel
 
 - name: install kernel modules
   make:
-    chdir: /usr/src/linux-sunxi
+    chdir: /usr/src/linux-gpdpocket
     target: modules_install
-    params:
-      LOCALVERSION: -custom
   when: kernel_sources.changed
   tags:
   - kernel
 
 - name: install new kernel
-  shell: |
-    mount /boot || true
-    cp -vf /boot/vmlinuz-4.12.0-custom /boot/vmlinuz-4.12.0-custom.old || true
-    cp -vf /usr/src/linux-sunxi/arch/x86/boot/bzImage /boot/vmlinuz-4.12.0-custom
+  copy:
+    src: /usr/src/linux-gpdpocket/arch/x86/boot/bzImage
+    dest: /boot/vmlinuz-4.12.0-gpdpocket
+    owner: root
+    group: root
+    mode: 0644
   when: kernel_sources.changed
 
 - name: add modules to initramfs [arch]

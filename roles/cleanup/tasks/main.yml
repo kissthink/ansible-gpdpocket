@@ -60,3 +60,10 @@
   - "/var/lib/gdm3/.config/monitors.xml"
   tags:
   - cleanup
+  
+- name: remove old kernel sources
+  file:
+    path: /usr/src/linux-sunxi
+    state: absent
+  tags:
+  - cleanup
