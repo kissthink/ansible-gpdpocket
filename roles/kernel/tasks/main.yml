@@ -9,6 +9,7 @@
   - git
   - inetutils
   - kmod
+  - libelf
   - tar
   when: ansible_distribution == 'Archlinux'
   tags:
@@ -20,6 +21,7 @@
   - build-essential
   - bzip2
   - git
+  - libelf-dev
   - libncurses5-dev
   - libssl-dev
   - tar
