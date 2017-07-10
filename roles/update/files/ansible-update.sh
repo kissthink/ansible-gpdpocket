@@ -1,4 +1,7 @@
-#!/bin/sh
+#!/bin/bash
+
+# set exit on error
+set -e
 
 # set branch to download
 if [ "$1" = "--dev" ]; then
