@@ -1,5 +1,5 @@
 ---
-- name: enable services
+- name: enable cpu services
   service:
     name: "{{ item }}"
     enabled: yes
