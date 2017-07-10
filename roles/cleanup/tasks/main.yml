@@ -61,9 +61,16 @@
   tags:
   - cleanup
   
-- name: remove old kernel sources
+- name: remove old kernel files
   file:
-    path: /usr/src/linux-sunxi
+    path: "{{ item }}"
     state: absent
+  with_items:
+  - /boot/vmlinuz
+  - /boot/initrd.img-4.12.0-custom
+  - /boot/system.map-4.12.0-custom
+  - /boot/vmlinuz-4.12.0-custom
+  - /lib/modules/4.12.0-custom
+  - /usr/src/linux-sunxi
   tags:
   - cleanup
