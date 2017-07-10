@@ -3,8 +3,10 @@
   systemd:
     name: gpdfand
     daemon_reload: yes
+  listen: reload systemd
 
 - name: enable gpdfand
   service:
     name: gpdfand
     enabled: yes
+  listen: enable gpdfand

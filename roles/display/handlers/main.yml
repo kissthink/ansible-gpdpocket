@@ -3,8 +3,10 @@
   systemd:
     name: gpdrotate
     daemon_reload: yes
+  listen: reload systemd
 
 - name: enable gpdrotate
   service:
     name: gpdrotate
     enabled: yes
+  listen: enable gpdrotate

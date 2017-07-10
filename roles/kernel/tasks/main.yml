@@ -25,6 +25,35 @@
   tags:
   - kernel
 
+- name: change hook loading order [arch]
+  lineinfile:
+    path: /etc/mkinitcpio.conf
+    regexp: '^HOOKS='
+    line: HOOKS="base udev block autodetect modconf filesystems fsck"
+    create: yes
+  notify:
+  - update initrd
+  - update grub
+  when: ansible_distribution == 'Archlinux'
+  tags:
+  - kernel
+
+- name: add modules to initramfs [debian]
+  lineinfile:
+    path: /etc/initramfs-tools/modules
+    line: "{{ item }}"
+    create: yes
+  with_items:
+  - btusb
+  - pwm-lpss
+  - pwm-lpss-platform
+  notify:
+  - update initrd
+  - update grub
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  tags:
+  - kernel
+
 - name: fetch latest prebuilt kernel (this will take a while)
   git:
     repo: https://github.com/cawilliamson/linux-gpdpocket.git
@@ -63,37 +92,8 @@
     line: MODULES="btusb pwm-lpss pwm-lpss-platform"
     create: yes
   notify:
-    - update initrd
-    - update grub
+  - update initrd
+  - update grub
   when: ansible_distribution == 'Archlinux'
-  tags:
-  - kernel
-
-- name: change hook loading order [arch]
-  lineinfile:
-    path: /etc/mkinitcpio.conf
-    regexp: '^HOOKS='
-    line: HOOKS="base udev block autodetect modconf filesystems fsck"
-    create: yes
-  notify:
-    - update initrd
-    - update grub
-  when: ansible_distribution == 'Archlinux'
-  tags:
-  - kernel
-
-- name: add modules to initramfs [debian]
-  lineinfile:
-    path: /etc/initramfs-tools/modules
-    line: "{{ item }}"
-    create: yes
-  with_items:
-  - btusb
-  - pwm-lpss
-  - pwm-lpss-platform
-  notify:
-    - update initrd
-    - update grub
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
   tags:
   - kernel
