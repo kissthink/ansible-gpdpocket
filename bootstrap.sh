@@ -23,7 +23,7 @@ while ! ping -c1 google.com &>/dev/null; do
   sleep 1
 done
 
-# install ansible
+# install essential packages
 echo "installing essential packages..."
 if [ -f /usr/bin/pacman ]; then
   pacman -Sy --noconfirm ansible unzip wget
@@ -38,7 +38,7 @@ elif [ -f /usr/bin/apt-get ]; then
   apt-get -y install software-properties-common python-software-properties
   add-apt-repository -y ppa:ansible/ansible
   apt-get update
-  apt-get -y install ansible git unzip
+  apt-get -y install ansible git
 fi
 
 # update ansible code
