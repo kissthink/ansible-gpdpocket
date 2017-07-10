@@ -3,10 +3,6 @@
 # set exit on error
 set -e
 
-# disable sleep
-echo "disabling sleep..."
-systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
-
 # copy wifi config
 echo "copying wifi config..."
 mkdir -p /lib/firmware/brcm
@@ -64,10 +60,6 @@ ANSIBLE_NOCOWS=1 ansible-playbook site.yml -e "bootstrap=true"
 # clean up
 echo "cleaning up..."
 rm -rf /tmp/ansible-gpdpocket
-
-# enable sleep
-echo "enabling sleep..."
-systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
 
 # reboot
 echo "starting reboot..."
