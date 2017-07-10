@@ -67,6 +67,7 @@
     state: absent
   with_items:
   - /boot/vmlinuz
+  - /boot/config-4.12.0-custom
   - /boot/initrd.img-4.12.0-custom
   - /boot/system.map-4.12.0-custom
   - /boot/vmlinuz-4.12.0-custom
