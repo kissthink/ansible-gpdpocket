@@ -82,6 +82,6 @@
     mode: 0644
   notify:
   - reload systemd
-  - enable service
+  - enable gpdfand
   tags:
   - fan

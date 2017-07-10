@@ -4,8 +4,7 @@
     name: gpdrotate
     daemon_reload: yes
 
-- name: enable service
+- name: enable gpdrotate
   service:
     name: gpdrotate
     enabled: yes
-    state: started

@@ -4,7 +4,7 @@
     name: gpdfand
     daemon_reload: yes
 
-- name: enable service
+- name: enable gpdfand
   service:
     name: gpdfand
     enabled: yes

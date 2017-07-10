@@ -44,7 +44,7 @@
     mode: 0644
   notify:
   - reload systemd
-  - enable service
+  - enable gpdrotate
   tags:
   - display
   
