@@ -1,8 +1,4 @@
 ---
-- name: update grub
-  shell: grub-mkconfig -o /boot/grub/grub.cfg
-  listen: update grub
-
 - name: update initrd
   shell: |
     if [ -f /usr/bin/apt-get ]; then
