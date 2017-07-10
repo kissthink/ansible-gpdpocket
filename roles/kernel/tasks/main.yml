@@ -57,7 +57,7 @@
 - name: build kernel (this will take a while)
   make:
     chdir: /usr/src/linux-sunxi
-    target: -j9
+    target: -j5
     params:
       LOCALVERSION: -custom
   when: kernel_sources.changed
