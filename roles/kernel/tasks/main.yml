@@ -27,7 +27,7 @@
 
 - name: fetch latest prebuilt kernel (this will take a while)
   git:
-    repo: https://github.com/cawilliamson/kernel-gpdpocket.git
+    repo: https://github.com/cawilliamson/linux-gpdpocket.git
     dest: /usr/src/linux-gpdpocket
     force: yes
   register: kernel_sources
