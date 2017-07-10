@@ -6,7 +6,7 @@ set -e
 # copy wifi config
 echo "copying wifi config..."
 mkdir -p /lib/firmware/brcm
-cp -f roles/wifi/files/brcmfmac4356-pcie.* /lib/firmware/brcm/ || true
+cp -f roles/wifi/files/brcmfmac4356-pcie.* /lib/firmware/brcm/
 
 # enable wifi
 echo "enabling wifi..."
@@ -38,14 +38,7 @@ elif [ -f /usr/bin/apt-get ]; then
   apt-get -y install software-properties-common python-software-properties
   add-apt-repository -y ppa:ansible/ansible
   apt-get update
-  
-  # wait for apt availability
-  echo "waiting for apt to be available..."
-  while fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
-    sleep 1
-  done
-  
-  apt-get -y install ansible unzip wget
+  apt-get -y install ansible git unzip
 fi
 
 # update ansible code
